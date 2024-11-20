@@ -24,7 +24,7 @@ const ServiceTable = ({ item }) => {
         <p style={{ flex: 1 }}>{formattedDate}</p>
         <p style={{ flex: 1.5 }}>{item?.problems}</p>
       </div>
-      <div className="block lg:hidden w-full bg-white p-2 border-b">
+      <div className="block lg:hidden w-full bg-white p-2 border-b-4">
         <p>
           <strong>Device ID:</strong> {item?.device_id}
         </p>
@@ -47,7 +47,7 @@ const ServiceTable = ({ item }) => {
           <strong>Problems:</strong> {item?.problems}
         </p>
       </div>
-      <div className="flex flex-col lg:flex-row items-center justify-center  gap-8 w-full lg:w-[20%] mt-2 lg:mt-0 lg:flex lg:gap-12">
+      <div className="flex flex-col lg:flex-row items-center justify-center  gap-6 w-[30%] lg:w-[20%] mt-2 lg:mt-0 lg:flex lg:gap-12">
         <Link href={`/servicecheck/${item?._id}/update`}>
           <FiEdit className="text-black" />
         </Link>
