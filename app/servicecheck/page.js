@@ -4,8 +4,10 @@ import Link from "next/link";
 
 const ServiceCheck = async () => {
   // const getData = async () => {
+  //   const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+  //   console.log(baseUrl);
   //   try {
-  //     const res = await fetch("http://localhost:3000/api/service-check", {
+  //     const res = await fetch("http//:localhost:300/api/service-check", {
   //       method: "GET",
   //       cache: "no-store",
   //     });
@@ -20,6 +22,7 @@ const ServiceCheck = async () => {
   //     return { error: "Failed to fetch data" };
   //   }
   // };
+
   const getData = async () => {
     try {
       const res = await fetch("http://localhost:3000/api/service-check", {
@@ -39,7 +42,6 @@ const ServiceCheck = async () => {
   };
 
   let datas = await getData();
-  // console.log("Fetched Data:", datas);
 
   return (
     <div className="h-[100vh] w-full bg-green-600 flex flex-col items-center justify-center">
