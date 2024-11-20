@@ -14,10 +14,9 @@ const ServiceTable = ({ item }) => {
   }
 
   return (
-    <div className="h-auto w-full flex flex-col lg:flex-row lg:h-14 items-center shadow-md">
-      {/* For larger screens */}
+    <div className="h-auto w-full flex lg:flex-row lg:h-14 items-center shadow-md">
       <div className="hidden lg:flex lg:justify-evenly lg:items-center w-[80%] items-center p-2 text-sm">
-        <p style={{ flex: 1.2, fontWeight: "bold" }}>{item?.device_id}</p>
+        <p style={{ flex: 1.2 }}>{item?.device_id}</p>
         <p style={{ flex: 1.5 }}>{item?.reg_no}</p>
         <p style={{ flex: 1.2 }}>{item?.customer_number}</p>
         <p style={{ flex: 1 }}>{item?.district}</p>
@@ -25,7 +24,6 @@ const ServiceTable = ({ item }) => {
         <p style={{ flex: 1 }}>{formattedDate}</p>
         <p style={{ flex: 1.5 }}>{item?.problems}</p>
       </div>
-      {/* For smaller screens */}
       <div className="block lg:hidden w-full bg-white p-2 border-b">
         <p>
           <strong>Device ID:</strong> {item?.device_id}
@@ -49,7 +47,7 @@ const ServiceTable = ({ item }) => {
           <strong>Problems:</strong> {item?.problems}
         </p>
       </div>
-      <div className="flex items-center justify-center gap-8 w-full lg:w-[20%] mt-2 lg:mt-0 lg:flex lg:gap-12">
+      <div className="flex flex-col lg:flex-row items-center justify-center  gap-8 w-full lg:w-[20%] mt-2 lg:mt-0 lg:flex lg:gap-12">
         <Link href={`/servicecheck/${item?._id}/update`}>
           <FiEdit className="text-black" />
         </Link>
@@ -57,68 +55,14 @@ const ServiceTable = ({ item }) => {
           <AiOutlineDelete className="text-red-700" />
         </Link>
         <div
-          className={`h-[20px] w-[50px] rounded-md ${
+          className={`h-[20px]
+          w-[30px] lg:h-[20px] lg:w-[50px] rounded-md ${
             item?.is_complete ? "bg-green-600" : "bg-red-600"
           }`}
         ></div>
       </div>
     </div>
   );
-
-  // <div className="h-14 w-full  flex index shadow-md ">
-  //   <div
-  //     style={{
-  //       width: "80%",
-  //       display: "flex",
-  //       alignItems: "center",
-  //       padding: 10,
-  //       fontSize: 14,
-  //     }}
-  //   >
-  //     <p style={{ flex: 1.2 }}>{item?.device_id}</p>
-  //     <p style={{ flex: 1.5 }}>{item?.reg_no}</p>
-  //     <p style={{ flex: 1.2 }}>{item?.customer_number}</p>
-  //     <p style={{ flex: 1 }}>{item?.district}</p>
-  //     <p style={{ flex: 1 }}>{item?.address}</p>
-  //     <p style={{ flex: 1 }}>{formattedDate}</p>
-  //     <p style={{ flex: 1.5 }}>{item?.problems}</p>
-  //   </div>
-  //   <div className="w-[20%] h-full flex items-center justify-evenly">
-  //     <div
-  //       style={{
-  //         flex: 7,
-  //         display: "flex",
-  //         justifyContent: "center",
-  //         alignItems: "center",
-  //         gap: 70,
-  //       }}
-  //     >
-  //       <Link href={`/servicecheck/${item?._id}/update`}>
-  //         <FiEdit className="text-black" />
-  //       </Link>
-
-  //       <Link href={`/servicecheck/${item?._id}/delete`}>
-  //         <AiOutlineDelete className="text-red-700" />
-  //       </Link>
-  //     </div>
-  //     <div
-  //       style={{
-  //         flex: 3,
-  //         padding: 1,
-  //         borderRadius: 4,
-  //         height: 20,
-  //         width: 50,
-  //         color: "black",
-  //       }}
-  //     >
-  //       {item?.is_complete === true ? (
-  //         <div className="h-[20px] w-[50px] rounded-md bg-green-600"></div>
-  //       ) : (
-  //         <div className="h-[20px] w-[50px] rounded-md bg-red-600"></div>
-  //       )}
-  //     </div>
-  //   </div>
-  // </div>
 };
 
 export default ServiceTable;
