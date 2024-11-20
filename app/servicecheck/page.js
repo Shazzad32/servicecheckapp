@@ -51,7 +51,7 @@ const ServiceCheck = async () => {
           welcome to service check platform
         </div>
         <div className="h-full w-[30%] flex items-center justify-center gap-4">
-          <button className="bg-white p-3 text-black rounded-md">
+          <button className="bg-white p-3 text-black rounded-md ">
             <Link href={"/servicecheck/add"}>
               <FaPlus />
             </Link>
@@ -90,9 +90,10 @@ const ServiceCheck = async () => {
             </div>
           </div>
           <div className="h-[92%] w-full overflow-auto">
-            {datas.map((item, i) => {
-              return <ServiceTable key={i} item={item} />;
-            })}
+            {datas &&
+              datas.map((item, i) => {
+                return <ServiceTable key={i} item={item} />;
+              })}
           </div>
         </div>
       </div>

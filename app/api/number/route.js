@@ -1,5 +1,5 @@
-// import { connectToDb } from "@/utils/database";
-// import Number from "@/models/number";
+import { connectToDb } from "@/utils/database";
+import Number from "@/models/number";
 
 // export const GET = async () => {
 //   try {
