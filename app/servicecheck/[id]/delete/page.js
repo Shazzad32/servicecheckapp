@@ -3,7 +3,7 @@ import DeleteItem from "@/components/DeleteItem";
 
 const DeleteService = async ({ params }) => {
   const { id } = await params;
-  const response = await fetch(`http://localhost:3000/api/service-check/${id}`);
+  const response = await fetch(`${process.env.URL}/api/service-check/${id}`);
   const data = await response.json();
 
   return (

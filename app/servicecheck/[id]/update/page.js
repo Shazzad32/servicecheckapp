@@ -4,7 +4,7 @@ import ServiceForm from "@/components/ServiceForm";
 const UpdateService = async ({ params }) => {
   const { id } = await params;
 
-  const response = await fetch(`http://localhost:3000/api/service-check/${id}`);
+  const response = await fetch(`${process.env.URL}/api/service-check/${id}`);
   const data = await response.json();
 
   console.log(data);

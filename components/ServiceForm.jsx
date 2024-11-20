@@ -12,7 +12,7 @@ const ServiceForm = ({ defaultServiceCheck, isUpdate }) => {
   });
 
   const saveServiceCheck = async () => {
-    const res = await fetch("http://localhost:3000/api/service-check", {
+    const res = await fetch("/api/service-check", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -29,16 +29,13 @@ const ServiceForm = ({ defaultServiceCheck, isUpdate }) => {
 
   const updateServiceCheck = async () => {
     console.log("ddd", serviceCheck);
-    const res = await fetch(
-      `http://localhost:3000/api/service-check/${serviceCheck._id}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(serviceCheck),
-      }
-    );
+    const res = await fetch(`/api/service-check/${serviceCheck._id}`, {
+      method: "PUT",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(serviceCheck),
+    });
 
     if (!res.ok) {
       throw new Error("Failed to update topic");

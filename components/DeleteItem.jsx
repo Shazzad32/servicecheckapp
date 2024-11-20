@@ -11,12 +11,9 @@ const DeleteItem = ({ data }) => {
     const confirmed = confirm("Are you sure?");
 
     if (confirmed) {
-      const res = await fetch(
-        `http://localhost:3000/api/service-check/${(data, data._id)}`,
-        {
-          method: "DELETE",
-        }
-      );
+      const res = await fetch(`/api/service-check/${(data, data._id)}`, {
+        method: "DELETE",
+      });
 
       if (res.ok) {
         router.refresh();
