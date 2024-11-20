@@ -30,57 +30,8 @@ export const POST = async (req) => {
 
     await serviceCheck.save();
 
-    // const data = await ServiceCheck.find();
     return new Response(JSON.stringify(serviceCheck), { status: 201 });
   } catch (error) {
     return new Response(error.message, { status: 500 });
   }
 };
-
-// export const PUT = async (req) => {
-//   try {
-//     const item = await req.json();
-
-//     if (!item._id) {
-//       return new Response("ID is required", { status: 400 });
-//     }
-
-//     await connectToDb();
-
-//     const updatedServiceCheck = await ServiceCheck.findByIdAndUpdate(
-//       item._id,
-//       item,
-//       { new: true }
-//     );
-
-//     if (!updatedServiceCheck) {
-//       return new Response("Document not found", { status: 404 });
-//     }
-
-//     return new Response(JSON.stringify(updatedServiceCheck), { status: 200 });
-//   } catch (error) {
-//     console.error("Error in PUT request:", error);
-//     return new Response(JSON.stringify({ message: error.message }), {
-//       status: 500,
-//     });
-//   }
-// };
-
-// export const DELETE = async (req) => {
-//   try {
-//     const { id } = await req.json();
-//     if (!id) {
-//       return new Response("ID is required", { status: 400 });
-//     }
-//     await connectToDb();
-//     const deletedServiceCheck = await ServiceCheck.findByIdAndDelete(id);
-
-//     if (!deletedServiceCheck) {
-//       return new Response("Document not found", { status: 404 });
-//     }
-//     return new Response("Document deleted successfully", { status: 200 });
-//   } catch (error) {
-//     console.log("Error in DELETE request:", error);
-//     return new Response(error.message, { status: 500 });
-//   }
-// };

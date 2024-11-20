@@ -47,7 +47,6 @@ const ServiceForm = ({ defaultServiceCheck, isUpdate }) => {
   };
 
   const handleChange = (e) => {
-    console.log(e.target.value);
     setServiceCheck({ ...serviceCheck, [e.target.name]: e.target.value });
   };
 

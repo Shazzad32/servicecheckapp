@@ -24,7 +24,7 @@ const ServiceCheck = async () => {
     try {
       const res = await fetch("http://localhost:3000/api/service-check", {
         method: "GET",
-        cache: "no-store", // Ensures data is always fresh
+        cache: "no-store",
       });
 
       if (!res.ok) {
@@ -39,6 +39,7 @@ const ServiceCheck = async () => {
   };
 
   let datas = await getData();
+  // console.log("Fetched Data:", datas);
 
   return (
     <div className="h-[100vh] w-full bg-green-600 flex flex-col items-center justify-center">
@@ -50,7 +51,6 @@ const ServiceCheck = async () => {
         <div className="h-full w-[30%] flex items-center justify-center gap-4">
           <button className="bg-white p-3 text-black rounded-md">
             <Link href={"/servicecheck/add"}>
-              {" "}
               <FaPlus />
             </Link>
           </button>

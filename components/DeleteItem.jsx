@@ -27,10 +27,10 @@ const DeleteItem = ({ data }) => {
 
   return (
     <div className="h-[150px]  w-2/6 bg-gray-300 flex flex-col p-4 rounded-md">
-      <div className="h-[70%] w-full text-xl uppercase">
+      <div className="h-[70%] w-full uppercase">
         Do you want to delete ?
         <span className="text-red-600 font-bold ml-2">
-          {serviceCheck.device_id}
+          {serviceCheck.device_id ? serviceCheck.device_id : "undefined"}
         </span>
       </div>
       <div className="h-[30%] w-full flex justify-end gap-2">

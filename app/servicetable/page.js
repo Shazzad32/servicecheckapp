@@ -3,15 +3,15 @@ import { FiEdit } from "react-icons/fi";
 import Link from "next/link";
 
 const ServiceTable = ({ item }) => {
-  // let formattedDate = "N/A";
+  let formattedDate = "N/A";
 
-  // if (item.insert_date) {
-  //   const date = new Date(item.insert_date);
-  //   const day = String(date.getDate()).padStart(2, "0");
-  //   const month = String(date.getMonth() + 1).padStart(2, "0");
-  //   const year = String(date.getFullYear()).slice(-4);
-  //   formattedDate = `${day}-${month}-${year}`;
-  // }
+  if (item && item.insert_date) {
+    const date = new Date(item.insert_date);
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = String(date.getFullYear()).slice(-4);
+    formattedDate = `${day}-${month}-${year}`;
+  }
 
   return (
     <div className="h-14 w-full  flex index shadow-md ">
@@ -29,7 +29,7 @@ const ServiceTable = ({ item }) => {
         <p style={{ flex: 1.2 }}>{item?.customer_number}</p>
         <p style={{ flex: 1 }}>{item?.district}</p>
         <p style={{ flex: 1 }}>{item?.address}</p>
-        <p style={{ flex: 1 }}>{item?.insert_date}</p>
+        <p style={{ flex: 1 }}>{formattedDate}</p>
         <p style={{ flex: 1.5 }}>{item?.problems}</p>
       </div>
       <div className="w-[20%] h-full flex items-center justify-evenly">

@@ -8,8 +8,6 @@ const defaultServiceCheck = {
   address: "",
   district: "",
   problems: "",
-  insert_date: "",
-  is_complete: false,
 };
 
 const AddService = () => {

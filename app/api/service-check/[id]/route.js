@@ -48,8 +48,6 @@ import ServiceCheck from "/models/service_check";
 
 export const GET = async (req, { params }) => {
   let { id } = await params;
-  // const id = req.url;
-  // console.log(params);
 
   try {
     await connectToDb();
@@ -80,10 +78,6 @@ export const PUT = async (req, { params }) => {
       is_complete,
     } = await req.json();
 
-    // console.log(device_id, id);
-
-    // console.log(data);
-
     const serviceCheck = await ServiceCheck.findOne({ _id: id });
     serviceCheck.device_id = device_id;
     serviceCheck.reg_no = reg_no;
@@ -101,13 +95,6 @@ export const PUT = async (req, { params }) => {
     return new Response(error.message, { status: 500 });
   }
 };
-
-// export async function DELETE(request) {
-//   const id = request.nextUrl.searchParams.get("id");
-//   await connectToDb();
-//   await Topic.findByIdAndDelete(id);
-//   return NextResponse.json({ message: "Topic deleted" }, { status: 200 });
-// }
 
 export async function DELETE(request, { params }) {
   const { id } = params;
