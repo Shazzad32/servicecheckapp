@@ -2,6 +2,7 @@ import Image from "next/image";
 import ImageBG from "./images/City_driver.fd3eed00.svg";
 import Link from "next/link";
 import { Button } from "@mui/material";
+import Test from "@/components/Test";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
           <Button variant="contained" size="medium">
             <Link href="/sim">sim</Link>
           </Button>
+          <Test />
         </div>
       </div>
       <div className="h-[88vh] w-full flex items-center justify-center">

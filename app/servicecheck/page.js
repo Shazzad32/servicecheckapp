@@ -25,7 +25,7 @@ const ServiceCheck = async () => {
 
   const getData = async () => {
     try {
-      const res = await fetch(process.env.URL + "/api/service-check", {
+      const res = await fetch("/api/service-check", {
         method: "GET",
         cache: "no-store",
       });
