@@ -23,7 +23,7 @@ const DeleteItem = ({ data }) => {
   };
 
   return (
-    <div className="h-[150px]  w-2/6 bg-gray-300 flex flex-col p-4 rounded-md">
+    <div className="w-[90%] h-[15%] rounded-md text-sm shadow-md bg-slate-400 flex flex-col items-center justify-center gap-2 p-4 lg:p-2 lg:w-[30%] lg:h-[20%] lg:gap-2 lg:text-xl">
       <div className="h-[70%] w-full uppercase">
         Do you want to delete ?
         <span className="text-red-600 font-bold ml-2">
