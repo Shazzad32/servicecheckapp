@@ -25,7 +25,7 @@ const ServiceCheck = async () => {
 
   const getData = async () => {
     try {
-      const res = await fetch("/api/service-check", {
+      const res = await fetch("http://localhost:3000/api/service-check", {
         method: "GET",
         cache: "no-store",
       });
