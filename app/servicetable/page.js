@@ -14,7 +14,7 @@ const ServiceTable = ({ item }) => {
   }
 
   return (
-    <div className="h-auto w-full flex lg:flex-row lg:h-14 items-center shadow-md">
+    <div className="h-auto w-full flex lg:flex-row lg:h-14 items-center shadow-none  border-b-4 lg:border-none lg:shadow-md">
       <div className="hidden lg:flex lg:justify-evenly lg:items-center w-[80%] items-center p-2 text-sm">
         <p style={{ flex: 1.2 }}>{item?.device_id}</p>
         <p style={{ flex: 1.5 }}>{item?.reg_no}</p>
@@ -24,7 +24,7 @@ const ServiceTable = ({ item }) => {
         <p style={{ flex: 1 }}>{formattedDate}</p>
         <p style={{ flex: 1.5 }}>{item?.problems}</p>
       </div>
-      <div className="block lg:hidden w-full bg-white p-2 border-b-4">
+      <div className="block lg:hidden w-full bg-white p-2">
         <p>
           <strong>Device ID:</strong> {item?.device_id}
         </p>
@@ -47,7 +47,7 @@ const ServiceTable = ({ item }) => {
           <strong>Problems:</strong> {item?.problems}
         </p>
       </div>
-      <div className="flex flex-col lg:flex-row items-center justify-center  gap-6 w-[30%] lg:w-[20%] mt-2 lg:mt-0 lg:flex lg:gap-12">
+      <div className="flex flex-col items-center justify-center  gap-6 w-[30%] lg:w-[20%] lg:mt-0 lg:flex lg:flex-row lg:gap-12">
         <Link href={`/servicecheck/${item?._id}/update`}>
           <FiEdit className="text-black" />
         </Link>
