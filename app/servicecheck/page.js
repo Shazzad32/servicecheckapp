@@ -1,7 +1,9 @@
 import { FaPlus } from "react-icons/fa6";
 import ServiceTable from "../servicetable/page";
 import Link from "next/link";
-
+import Search from "@/components/Search";
+import { Button } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 const ServiceCheck = async () => {
   const getData = async () => {
     try {
@@ -23,23 +25,41 @@ const ServiceCheck = async () => {
 
   let datas = await getData();
 
+  const trueCount = datas.filter((item) => item.is_complete === true).length;
+  const total = datas.length;
+
   return (
     <div className="h-full w-full bg-green-600 flex flex-col items-center justify-center">
       <div className="h-[10vh] w-full bg-cyan-800 flex flex-wrap items-center justify-between px-4 py-2">
-        <div className="text-white text-center lg:text-lg md:text-md sm:text-sm uppercase">
+        <div className="text-white text-center flex items-center gap-2 lg:text-lg md:text-xl sm:text-sm uppercase">
           Welcome to Service Check Platform
+          <div className="w-[120px] h-[30px] text-sm bg-white text-black rounded-md lg:flex items-center justify-center hidden">
+            Total : <span className="text-red-700 font-bold ml-2">{total}</span>
+          </div>
+          <div className="w-[120px] h-[30px] text-sm bg-white text-black rounded-md lg:flex items-center justify-center hidden">
+            Complete :{" "}
+            <span className="text-red-700 font-bold ml-2">{trueCount}</span>
+          </div>
         </div>
         <div className="flex items-center gap-2">
-          <Link href="/servicecheck/add">
-            <button className="bg-white p-3 rounded-md">
-              <FaPlus />
-            </button>
-          </Link>
-          <input
-            type="search"
-            placeholder="Search..."
-            className="h-10 p-2 rounded-md border-none"
-          />
+          <Button
+            variant="contained"
+            fontSize="large"
+            className="bg-white text-black"
+          >
+            <Link href="/">HOME</Link>
+          </Button>
+          <Button
+            variant="contained"
+            fontSize="large"
+            className="bg-white text-black"
+          >
+            <Link href="/servicecheck/add">
+              <AddIcon fontSize="medium" />
+            </Link>
+          </Button>
+
+          <Search initialData={datas} />
         </div>
       </div>
 
@@ -55,7 +75,7 @@ const ServiceCheck = async () => {
               <p style={{ flex: 1 }}>Insert Date</p>
               <p style={{ flex: 1.5 }}>Problems</p>
             </div>
-            <p className="w-1/5 text-center">Action</p>
+            <p className="w-1/5 text-center hidden lg:block ">Action</p>
           </div>
           <div className="h-[92%] w-full overflow-auto">
             {datas &&

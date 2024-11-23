@@ -1,6 +1,8 @@
 import { AiOutlineDelete } from "react-icons/ai";
 import { FiEdit } from "react-icons/fi";
 import Link from "next/link";
+import DeleteIcon from "@mui/icons-material/Delete";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 const ServiceTable = ({ item }) => {
   let formattedDate = "N/A";
@@ -15,14 +17,16 @@ const ServiceTable = ({ item }) => {
 
   return (
     <div className="h-auto w-full flex lg:flex-row lg:h-14 items-center shadow-none  border-b-4 lg:border-none lg:shadow-md">
-      <div className="hidden lg:flex lg:justify-evenly lg:items-center w-[80%] items-center p-2 text-sm">
+      <div className="hidden text-pretty lg:flex lg:justify-evenly lg:items-center w-[80%] items-center p-2 text-sm">
         <p style={{ flex: 1.2 }}>{item?.device_id}</p>
         <p style={{ flex: 1.5 }}>{item?.reg_no}</p>
         <p style={{ flex: 1.2 }}>{item?.customer_number}</p>
         <p style={{ flex: 1 }}>{item?.district}</p>
         <p style={{ flex: 1 }}>{item?.address}</p>
         <p style={{ flex: 1 }}>{formattedDate}</p>
-        <p style={{ flex: 1.5 }}>{item?.problems}</p>
+        <p className="flex-[1.5] whitespace-nowrap text-ellipsis overflow-hidden">
+          {item?.problems}
+        </p>
       </div>
       <div className="block lg:hidden w-full bg-white p-2">
         <p>
@@ -52,7 +56,7 @@ const ServiceTable = ({ item }) => {
           <FiEdit className="text-black" />
         </Link>
         <Link href={`/servicecheck/${item?._id}/delete`}>
-          <AiOutlineDelete className="text-red-700" />
+          <DeleteForeverIcon className="text-red-700" />
         </Link>
         <div
           className={`h-[20px]
