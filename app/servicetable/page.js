@@ -18,11 +18,14 @@ const ServiceTable = ({ item }) => {
   return (
     <div className="h-auto w-full flex lg:flex-row lg:h-14 items-center shadow-none  border-b-4 lg:border-none lg:shadow-md">
       <div className="hidden text-pretty lg:flex lg:justify-evenly lg:items-center w-[80%] items-center p-2 text-sm">
-        <p style={{ flex: 1.2 }}>{item?.device_id}</p>
-        <p style={{ flex: 1.5 }}>{item?.reg_no}</p>
-        <p style={{ flex: 1.2 }}>{item?.customer_number}</p>
+        <p style={{ flex: 1 }}>{item?.device_id}</p>
+        <p style={{ flex: 1.2 }}>{item?.reg_no}</p>
+        <p style={{ flex: 1 }}>{item?.customer_number}</p>
         <p style={{ flex: 1 }}>{item?.district}</p>
-        <p style={{ flex: 1 }}>{item?.address}</p>
+        <p className="flex-[1] whitespace-nowrap text-ellipsis overflow-hidden">
+          {item?.address}
+        </p>
+        <p style={{ flex: 1 }}>{formattedDate}</p>
         <p style={{ flex: 1 }}>{formattedDate}</p>
         <p className="flex-[1.5] whitespace-nowrap text-ellipsis overflow-hidden">
           {item?.problems}

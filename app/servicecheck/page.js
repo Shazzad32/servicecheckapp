@@ -1,4 +1,3 @@
-import { FaPlus } from "react-icons/fa6";
 import ServiceTable from "../servicetable/page";
 import Link from "next/link";
 import Search from "@/components/Search";
@@ -37,8 +36,10 @@ const ServiceCheck = async () => {
             Total : <span className="text-red-700 font-bold ml-2">{total}</span>
           </div>
           <div className="w-[120px] h-[30px] text-sm bg-white text-black rounded-md lg:flex items-center justify-center hidden">
-            Complete :{" "}
-            <span className="text-red-700 font-bold ml-2">{trueCount}</span>
+            <Link href={"/completetable"}>
+              Complete :{" "}
+              <span className="text-red-700 font-bold ml-2">{trueCount}</span>
+            </Link>
           </div>
         </div>
         <div className="flex items-center gap-2">
@@ -67,12 +68,13 @@ const ServiceCheck = async () => {
         <div className="h-[98%] w-[99%] shadow-2xl bg-white rounded-md overflow-auto lg:overflow-x-auto">
           <div className="w-full flex bg-cyan-900 text-white text-sm uppercase py-2">
             <div className="lg:flex lg:flex-1 px-2 hidden">
-              <p style={{ flex: 1.2 }}>Device ID</p>
-              <p style={{ flex: 1.5 }}>Reg No</p>
-              <p style={{ flex: 1.2 }}>Customer No</p>
+              <p style={{ flex: 1 }}>Device ID</p>
+              <p style={{ flex: 1.2 }}>Reg No</p>
+              <p style={{ flex: 1 }}>Customer No</p>
               <p style={{ flex: 1 }}>District</p>
               <p style={{ flex: 1 }}>Address</p>
               <p style={{ flex: 1 }}>Insert Date</p>
+              <p style={{ flex: 1 }}>Pro_Ins_Date</p>
               <p style={{ flex: 1.5 }}>Problems</p>
             </div>
             <p className="w-1/5 text-center hidden lg:block ">Action</p>

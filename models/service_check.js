@@ -10,6 +10,9 @@ const serviceCheckSchema = new Schema({
   problems: { type: String },
   insert_date: { type: Date, default: Date.now },
   is_complete: { type: Boolean, default: false },
+  history: [
+    { probabol_install_date: { type: Date }, description: { type: String } },
+  ],
 });
 
 serviceCheckSchema.index({ reg_no: 1 });
