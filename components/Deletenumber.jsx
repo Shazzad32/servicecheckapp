@@ -23,7 +23,7 @@ const DeleteNumber = ({ data }) => {
   };
 
   return (
-    <div className="w-[90%] h-[15%] rounded-md text-sm shadow-md bg-slate-900 flex flex-col items-center justify-center gap-2 p-4 lg:p-2 lg:w-[30%] lg:h-[20%] lg:gap-2 lg:text-xl">
+    <div className="w-[90%] h-[15%] rounded-md text-sm shadow-md text-white bg-blue-300 flex flex-col items-center p-2 justify-center gap-2 lg:p-3 lg:w-[30%] lg:h-[20%] lg:gap-2 lg:text-xl">
       <div className="h-[70%] w-full uppercase">
         Do you want to delete ?
         <span className="text-red-600 font-bold ml-2">
@@ -31,10 +31,10 @@ const DeleteNumber = ({ data }) => {
         </span>
       </div>
       <div className="h-[30%] w-full flex justify-end gap-2">
-        <Button variant="outlined" onClick={removeNumber}>
+        <Button variant="contained" onClick={removeNumber}>
           yes
         </Button>
-        <Button variant="outlined">
+        <Button variant="contained">
           <Link href={"/sim"}>No</Link>
         </Button>
       </div>

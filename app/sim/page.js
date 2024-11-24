@@ -2,6 +2,7 @@ import SimTable from "../simtable/page";
 import Link from "next/link";
 import { Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+import Search from "@/components/Search";
 
 const Sim = async () => {
   const getData = async () => {
@@ -59,6 +60,7 @@ const Sim = async () => {
               <AddIcon fontSize="medium" />
             </Link>
           </Button>
+          <Search />
         </div>
       </div>
 
