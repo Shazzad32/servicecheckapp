@@ -2,27 +2,25 @@
 import { useState, useEffect } from "react";
 import ServiceTable from "../servicetable/page";
 import Link from "next/link";
-import Search from "@/components/Search";
-import { Button } from "@mui/material";
+import { Button, Checkbox, Tooltip } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import axios from "axios";
 
 const ServiceCheck = () => {
   const [state, setState] = useState({
     datas: [],
-    selectUser: "",
+
     dataResults: "",
     searchItem: "",
+    nextday: false,
   });
 
   useEffect(() => {
     getData();
   }, []);
 
-  const Url = process.env.URL;
-
-  const getData = async () => {
-    await axios.get("/api/service-check").then((res) => {
+  const getData = () => {
+    axios.get("/api/service-check").then((res) => {
       let data = res.data;
       console.log(data, "dkdk");
       let old = { ...state };
@@ -32,6 +30,11 @@ const ServiceCheck = () => {
       setState(old);
     });
   };
+
+  const total = state.datas.length;
+  const trueCount = state.datas.filter(
+    (item) => item.is_complete === true
+  ).length;
 
   const searchText = (e) => {
     let searchTxt = e.target.value.toLowerCase();
@@ -66,21 +69,63 @@ const ServiceCheck = () => {
     setState(old);
   };
 
+  const nextDayFilter = (date) => {
+    let ddd = new Date(date);
+    let today = new Date();
+    today.setHours(23);
+    today.setMinutes(59);
+    today.setSeconds(59);
+
+    let nextDay = new Date(today.getTime());
+    nextDay.setDate(nextDay.getDate() + 1);
+
+    return (
+      ddd.getTime() >= today.getTime() && ddd.getTime() <= nextDay.getTime()
+    );
+  };
+
+  const onCheckChanged = (e) => {
+    let old = { ...state };
+    old.nextday = !old.nextday;
+
+    if (old.nextday) {
+      old.datas = [...old.dataResults].filter((x) =>
+        nextDayFilter(x.probable_install_date)
+      );
+    } else {
+      old.datas = [...old.dataResults];
+    }
+    setState(old);
+  };
+
   return (
     <div className="h-full w-full bg-green-600 flex flex-col items-center justify-center">
       <div className="h-[10vh] w-full bg-cyan-800 flex flex-wrap items-center justify-between px-4 py-2">
         <div className="text-white text-center flex items-center gap-2 lg:text-lg md:text-xl sm:text-sm uppercase">
           Welcome to Service Check Platform
           <div className="w-[120px] h-[30px] text-sm bg-white text-black rounded-md lg:flex items-center justify-center hidden">
-            Total : <span className="text-red-700 font-bold ml-2">{}</span>
+            Total : <span className="text-red-700 font-bold ml-2">{total}</span>
           </div>
           <div className="w-[120px] h-[30px] text-sm bg-white text-black rounded-md lg:flex items-center justify-center hidden">
             <Link href={"/completetable"}>
-              Complete : <span className="text-red-700 font-bold ml-2">{}</span>
+              Complete :{" "}
+              <span className="text-red-700 font-bold ml-2">{trueCount}</span>
             </Link>
           </div>
         </div>
         <div className="flex items-center gap-2">
+          <Tooltip title="Next Day" enterDelay={200} leaveDelay={200}>
+            <Checkbox
+              style={{
+                height: "35px",
+                width: "40px",
+                color: "white",
+              }}
+              label="Next"
+              checked={state.nextday}
+              onChange={onCheckChanged}
+            />
+          </Tooltip>
           <Button
             variant="contained"
             fontSize="large"

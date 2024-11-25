@@ -74,7 +74,6 @@ const NumberForm = ({ defaultNumber, isUpdate }) => {
                 value: newValue ? newValue.format("YYYY-MM-DD") : "", // Convert to string for state
               },
             });
-            fullWidth;
           }}
         />
       </LocalizationProvider>
