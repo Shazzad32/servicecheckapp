@@ -10,9 +10,6 @@ import axios from "axios";
 const ServiceCheck = () => {
   const [state, setState] = useState({
     datas: [],
-    open: false,
-    editOpen: false,
-    deleteOpen: false,
     selectUser: "",
     dataResults: "",
     searchItem: "",
@@ -22,9 +19,10 @@ const ServiceCheck = () => {
     getData();
   }, []);
 
-  const getData = () => {
-    axios.get("http://localhost:3000/api/service-check").then((res) => {
-      // axios.get(`${process.env.URL}/api/service-check`).then((res) => {
+  const Url = process.env.URL;
+
+  const getData = async () => {
+    await axios.get("/api/service-check").then((res) => {
       let data = res.data;
       console.log(data, "dkdk");
       let old = { ...state };
@@ -33,21 +31,6 @@ const ServiceCheck = () => {
       console.log("data", old.datas);
       setState(old);
     });
-  };
-
-  const saveUser = (user) => {
-    axios
-      .post("", user)
-      .then((x) => {
-        let old = { ...state };
-        old.open = false;
-        old.datas = [...old.datas, x.data];
-        old.selectUser = ""; // Reset selectUser
-        setState(old);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
   };
 
   const searchText = (e) => {
@@ -117,7 +100,7 @@ const ServiceCheck = () => {
           <input
             type="search"
             id="search"
-            className="bg-gray-50 border w-[250px] border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block mr-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="rounded-md border border-gray-200 py-[9px] p-4 text-sm outline-2 placeholder:text-gray-500"
             placeholder="Search..."
             value={state.searchItem}
             onChange={searchText}
