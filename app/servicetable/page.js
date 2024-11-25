@@ -1,11 +1,10 @@
-import { AiOutlineDelete } from "react-icons/ai";
 import { FiEdit } from "react-icons/fi";
 import Link from "next/link";
-import DeleteIcon from "@mui/icons-material/Delete";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 const ServiceTable = ({ item }) => {
   let formattedDate = "N/A";
+  let probale_install_date_formate = "N/A";
 
   if (item && item.insert_date) {
     const date = new Date(item.insert_date);
@@ -14,26 +13,35 @@ const ServiceTable = ({ item }) => {
     const year = String(date.getFullYear()).slice(-4);
     formattedDate = `${day}-${month}-${year}`;
   }
+  if (item && item.probable_install_date) {
+    const date = new Date(item.probable_install_date);
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = String(date.getFullYear()).slice(-4);
+    probale_install_date_formate = `${day}-${month}-${year}`;
+  }
 
   return (
     <div className="h-auto w-full flex lg:flex-row lg:h-14 items-center shadow-none  border-b-4 lg:border-none lg:shadow-md">
       <div className="hidden text-pretty lg:flex lg:justify-evenly lg:items-center w-[80%] items-center p-2 text-sm">
-        <p style={{ flex: 1 }}>{item?.device_id}</p>
-        <p style={{ flex: 1.2 }}>{item?.reg_no}</p>
+        <p style={{ flex: 1.5 }}>{item?.device_id}</p>
+        <p style={{ flex: 1.5 }}>{item?.reg_no}</p>
         <p style={{ flex: 1 }}>{item?.customer_number}</p>
         <p style={{ flex: 1 }}>{item?.district}</p>
         <p className="flex-[1] whitespace-nowrap text-ellipsis overflow-hidden">
           {item?.address}
         </p>
         <p style={{ flex: 1 }}>{formattedDate}</p>
-        <p style={{ flex: 1 }}>{formattedDate}</p>
-        <p className="flex-[1.5] whitespace-nowrap text-ellipsis overflow-hidden">
+        <p style={{ flex: 1 }}>{probale_install_date_formate}</p>
+        <p className="flex-[2] whitespace-nowrap text-ellipsis overflow-hidden">
           {item?.problems}
         </p>
       </div>
       <div className="block lg:hidden w-full bg-white p-2">
         <p>
-          <strong>Device ID:</strong> {item?.device_id}
+          <strong>
+            Device ID: <span className="text-red-700">{item?.device_id}</span>
+          </strong>
         </p>
         <p>
           <strong>Reg No:</strong> {item?.reg_no}
@@ -49,6 +57,9 @@ const ServiceTable = ({ item }) => {
         </p>
         <p>
           <strong>Insert Date:</strong> {formattedDate}
+        </p>
+        <p>
+          <strong>prob Install Date:</strong> {probale_install_date_formate}
         </p>
         <p>
           <strong>Problems:</strong> {item?.problems}

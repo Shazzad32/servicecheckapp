@@ -3,6 +3,10 @@ import { Autocomplete, TextField, Switch, Button } from "@mui/material";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs from "dayjs";
 
 const NumberForm = ({ defaultNumber, isUpdate }) => {
   const router = useRouter();
@@ -46,13 +50,6 @@ const NumberForm = ({ defaultNumber, isUpdate }) => {
     setNumber({ ...number, [e.target.name]: e.target.value });
   };
 
-  //   const handleAutocompleteChange = (name, newValue) => {
-  //     setNumber((prevUser) => ({
-  //       ...prevUser,
-  //       [name]: newValue,
-  //     }));
-  //   };
-
   return (
     <div className="w-full  flex flex-col items-center justify-center gap-2 p-1 lg:p-6 lg:w-[50%] lg:gap-4">
       <TextField
@@ -63,14 +60,24 @@ const NumberForm = ({ defaultNumber, isUpdate }) => {
         label="Number"
         fullWidth
       />
-      <TextField
-        type="date"
-        name="active_date"
-        value={number.active_date || ""}
-        onChange={handleChange}
-        label="Active Date"
-        fullWidth
-      />
+
+      <LocalizationProvider fullWidth dateAdapter={AdapterDayjs}>
+        <DatePicker
+          className="w-full"
+          label="Active Date"
+          name="active_date"
+          value={number.active_date ? dayjs(number.active_date) : null} // Ensure Day.js object or null
+          onChange={(newValue) => {
+            handleChange({
+              target: {
+                name: "active_date",
+                value: newValue ? newValue.format("YYYY-MM-DD") : "", // Convert to string for state
+              },
+            });
+            fullWidth;
+          }}
+        />
+      </LocalizationProvider>
       <div className="flex w-full justify-end gap-4">
         <Button variant="outlined">
           <Link href="/sim">Cancel</Link>

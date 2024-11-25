@@ -75,6 +75,7 @@ export const PUT = async (req, { params }) => {
       address,
       district,
       problems,
+      probable_install_date,
       is_complete,
     } = await req.json();
 
@@ -85,6 +86,7 @@ export const PUT = async (req, { params }) => {
     serviceCheck.address = address;
     serviceCheck.district = district;
     serviceCheck.problems = problems;
+    serviceCheck.probable_install_date = probable_install_date;
     serviceCheck.is_complete = is_complete;
 
     await serviceCheck.save();

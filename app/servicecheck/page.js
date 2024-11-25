@@ -26,6 +26,7 @@ const ServiceCheck = async () => {
 
   const trueCount = datas.filter((item) => item.is_complete === true).length;
   const total = datas.length;
+  // console.log("dajklfs", datas);
 
   return (
     <div className="h-full w-full bg-green-600 flex flex-col items-center justify-center">
@@ -68,14 +69,14 @@ const ServiceCheck = async () => {
         <div className="h-[98%] w-[99%] shadow-2xl bg-white rounded-md overflow-auto lg:overflow-x-auto">
           <div className="w-full flex bg-cyan-900 text-white text-sm uppercase py-2">
             <div className="lg:flex lg:flex-1 px-2 hidden">
-              <p style={{ flex: 1 }}>Device ID</p>
-              <p style={{ flex: 1.2 }}>Reg No</p>
+              <p style={{ flex: 1.5 }}>Device ID</p>
+              <p style={{ flex: 1.5 }}>Reg No</p>
               <p style={{ flex: 1 }}>Customer No</p>
               <p style={{ flex: 1 }}>District</p>
               <p style={{ flex: 1 }}>Address</p>
               <p style={{ flex: 1 }}>Insert Date</p>
               <p style={{ flex: 1 }}>Pro_Ins_Date</p>
-              <p style={{ flex: 1.5 }}>Problems</p>
+              <p style={{ flex: 2 }}>Problems</p>
             </div>
             <p className="w-1/5 text-center hidden lg:block ">Action</p>
           </div>

@@ -13,8 +13,15 @@ export const GET = async () => {
 };
 
 export const POST = async (req) => {
-  let { device_id, reg_no, customer_number, address, district, problems } =
-    await req.json();
+  let {
+    device_id,
+    reg_no,
+    customer_number,
+    address,
+    district,
+    problems,
+    probable_install_date,
+  } = await req.json();
 
   try {
     await connectToDb();
@@ -26,6 +33,7 @@ export const POST = async (req) => {
       address,
       district,
       problems,
+      probable_install_date,
     });
 
     await serviceCheck.save();

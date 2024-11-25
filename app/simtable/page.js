@@ -16,7 +16,7 @@ const SimTable = ({ item }) => {
     <div className="h-auto w-full flex lg:flex-row lg:h-14 items-center shadow-none  border-b-4 lg:border-none lg:shadow-md">
       <div className="hidden font-bold text-pretty lg:flex lg:justify-evenly lg:items-center w-[80%] items-center p-2 text-sm">
         <p style={{ flex: 3.3 }}>{item?.number}</p>
-        <p style={{ flex: 3.3 }}>{item?.active_date}</p>
+        <p style={{ flex: 3.3 }}>{formattedDate}</p>
         <div style={{ flex: 3.3 }}>
           <p
             className={`h-[30px]
@@ -31,7 +31,7 @@ const SimTable = ({ item }) => {
           <strong>Number:</strong> {item?.number}
         </p>
         <p>
-          <strong>Active Date:</strong> {item?.active_date}
+          <strong>Active Date:</strong> {formattedDate}
         </p>
         <div className="flex gap-2">
           <strong>Active</strong>

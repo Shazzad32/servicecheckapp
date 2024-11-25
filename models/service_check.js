@@ -8,11 +8,9 @@ const serviceCheckSchema = new Schema({
   address: { type: String },
   district: { type: String },
   problems: { type: String },
+  probable_install_date: { type: Date },
   insert_date: { type: Date, default: Date.now },
   is_complete: { type: Boolean, default: false },
-  history: [
-    { probabol_install_date: { type: Date }, description: { type: String } },
-  ],
 });
 
 serviceCheckSchema.index({ reg_no: 1 });

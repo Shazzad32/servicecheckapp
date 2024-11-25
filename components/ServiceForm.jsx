@@ -5,11 +5,18 @@ import districtOptions from "@/data";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs from "dayjs";
+
 const ServiceForm = ({ defaultServiceCheck, isUpdate }) => {
   const router = useRouter();
   const [serviceCheck, setServiceCheck] = useState({
     ...defaultServiceCheck,
   });
+
+  console.log(serviceCheck, "..ddd");
 
   const saveServiceCheck = async () => {
     const res = await fetch("/api/service-check", {
@@ -103,6 +110,7 @@ const ServiceForm = ({ defaultServiceCheck, isUpdate }) => {
         label="Address"
         fullWidth
       />
+
       <TextField
         type="text"
         name="problems"
@@ -111,7 +119,26 @@ const ServiceForm = ({ defaultServiceCheck, isUpdate }) => {
         label="Problems"
         fullWidth
       />
-
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <DatePicker
+          className="w-full"
+          label="Probabal Install Date"
+          name="probable_install_date"
+          value={
+            serviceCheck.probable_install_date
+              ? dayjs(serviceCheck.probable_install_date)
+              : null
+          }
+          onChange={(newValue) => {
+            handleChange({
+              target: {
+                name: "probable_install_date",
+                value: newValue ? newValue.toISOString() : "", // Use ISO format
+              },
+            });
+          }}
+        />
+      </LocalizationProvider>
       {isUpdate && (
         <p
           style={{
@@ -134,7 +161,6 @@ const ServiceForm = ({ defaultServiceCheck, isUpdate }) => {
           }
         </p>
       )}
-
       <div className="flex w-full justify-end gap-4">
         <Button variant="outlined">
           <Link href="/servicecheck">Cancel</Link>

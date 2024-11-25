@@ -8,11 +8,12 @@ const defaultServiceCheck = {
   address: "",
   district: "",
   problems: "",
+  probable_install_date: "",
 };
 
 const AddService = () => {
   return (
-    <div className="w-full h-[100vh] flex flex-col items-center justify-center p-4 gap-8 sm:gap-4">
+    <div className="w-full flex flex-col items-center justify-center p-4 gap-8 sm:gap-4">
       <div className="text-sm font-bold uppercase text-orange-400 md:text-3xl">
         Create Service
       </div>
