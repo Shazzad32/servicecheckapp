@@ -110,6 +110,14 @@ const ServiceForm = ({ defaultServiceCheck, isUpdate }) => {
         label="Address"
         fullWidth
       />
+      <TextField
+        type="number"
+        name="service_fee"
+        value={serviceCheck.service_fee || ""}
+        onChange={handleChange}
+        label="Service Fee"
+        fullWidth
+      />
 
       <TextField
         type="text"
@@ -161,6 +169,7 @@ const ServiceForm = ({ defaultServiceCheck, isUpdate }) => {
           }
         </p>
       )}
+
       <div className="flex w-full justify-end gap-4">
         <Button variant="outlined">
           <Link href="/servicecheck">Cancel</Link>

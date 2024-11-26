@@ -20,6 +20,7 @@ export const POST = async (req) => {
     address,
     district,
     problems,
+    service_fee,
     probable_install_date,
   } = await req.json();
 
@@ -33,6 +34,7 @@ export const POST = async (req) => {
       address,
       district,
       problems,
+      service_fee,
       probable_install_date,
     });
 

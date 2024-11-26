@@ -36,8 +36,8 @@ const Sim = () => {
     } else {
       old.datas = [...old.dataResults].filter((x) => {
         return (
-          (x.device_id &&
-            x.device_id.toLowerCase().includes(searchTxt.toLowerCase())) ||
+          (x.number &&
+            x.number.toLowerCase().includes(searchTxt.toLowerCase())) ||
           (x.active_date &&
             x.active_date.toLowerCase().includes(searchTxt.toLowerCase()))
         );
@@ -83,25 +83,12 @@ const Sim = () => {
             Total :{" "}
             <span className="text-red-700 font-bold ml-2">{total_number}</span>
           </div>
-          <div className="w-[120px] h-[30px] text-sm bg-white text-black rounded-md lg:flex items-center justify-center hidden">
-            <Link href={"/completetable"}>
-              Complete : <span className="text-red-700 font-bold ml-2">{}</span>
-            </Link>
-          </div>
         </div>
         <div className="flex items-center gap-2">
-          <Button
-            variant="contained"
-            fontSize="large"
-            className="bg-white text-black"
-          >
+          <Button fontSize="large" className="bg-white text-black">
             <Link href="/">HOME</Link>
           </Button>
-          <Button
-            variant="contained"
-            fontSize="large"
-            className="bg-white text-black"
-          >
+          <Button fontSize="large" className="bg-white text-black">
             <Link href="/sim/add">
               <AddIcon fontSize="medium" />
             </Link>

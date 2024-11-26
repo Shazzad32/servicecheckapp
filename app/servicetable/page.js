@@ -21,19 +21,45 @@ const ServiceTable = ({ item }) => {
     probale_install_date_formate = `${day}-${month}-${year}`;
   }
 
+  console.log(item?.service_fee);
+
   return (
     <div className="h-auto w-full flex lg:flex-row lg:h-14 items-center shadow-none  border-b-4 lg:border-none lg:shadow-md">
-      <div className="hidden text-pretty lg:flex lg:justify-evenly lg:items-center w-[80%] items-center p-2 text-sm">
-        <p style={{ flex: 1.5 }}>{item?.device_id}</p>
-        <p style={{ flex: 1.5 }}>{item?.reg_no}</p>
+      <div className="hidden text-pretty lg:flex lg:gap-5 lg:justify-evenly lg:items-center w-[80%] items-center p-2 text-sm">
+        <p style={{ flex: 1.2 }}>{item?.device_id}</p>
+        <p
+          style={{
+            flex: 1.3,
+            whiteSpace: "nowrap",
+            textOverflow: "ellipsis",
+            overflow: "hidden",
+          }}
+        >
+          {item?.reg_no}
+        </p>
         <p style={{ flex: 1 }}>{item?.customer_number}</p>
         <p style={{ flex: 1 }}>{item?.district}</p>
-        <p className="flex-[1] whitespace-nowrap text-ellipsis overflow-hidden">
+        <p
+          style={{
+            flex: 1,
+            whiteSpace: "nowrap",
+            textOverflow: "ellipsis",
+            overflow: "hidden",
+          }}
+        >
           {item?.address}
         </p>
+        <p style={{ flex: 1 }}>{item?.service_fee}</p>
         <p style={{ flex: 1 }}>{formattedDate}</p>
         <p style={{ flex: 1 }}>{probale_install_date_formate}</p>
-        <p className="flex-[2] whitespace-nowrap text-ellipsis overflow-hidden">
+        <p
+          style={{
+            flex: 1.5,
+            whiteSpace: "nowrap",
+            textOverflow: "ellipsis",
+            overflow: "hidden",
+          }}
+        >
           {item?.problems}
         </p>
       </div>
@@ -54,6 +80,9 @@ const ServiceTable = ({ item }) => {
         </p>
         <p>
           <strong>Address:</strong> {item?.address}
+        </p>
+        <p>
+          <strong>Service Fee:</strong> {item?.service_fee}
         </p>
         <p>
           <strong>Insert Date:</strong> {formattedDate}

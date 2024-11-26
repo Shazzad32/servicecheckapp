@@ -8,6 +8,7 @@ const serviceCheckSchema = new Schema({
   address: { type: String },
   district: { type: String },
   problems: { type: String },
+  service_fee: { type: Number },
   probable_install_date: { type: Date },
   insert_date: { type: Date, default: Date.now },
   is_complete: { type: Boolean, default: false },

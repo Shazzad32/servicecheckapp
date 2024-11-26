@@ -9,7 +9,6 @@ import axios from "axios";
 const ServiceCheck = () => {
   const [state, setState] = useState({
     datas: [],
-
     dataResults: "",
     searchItem: "",
     nextday: false,
@@ -114,6 +113,7 @@ const ServiceCheck = () => {
           </div>
         </div>
         <div className="flex items-center gap-2">
+          <p className="text-white hidden uppercase lg:flex">Tomorrow</p>
           <Tooltip title="Next Day" enterDelay={200} leaveDelay={200}>
             <Checkbox
               style={{
@@ -156,15 +156,16 @@ const ServiceCheck = () => {
       <div className="h-[90vh] w-full bg-gray-500 flex items-center justify-center">
         <div className="h-[98%] w-[99%] shadow-2xl bg-white rounded-md overflow-auto lg:overflow-x-auto">
           <div className="w-full flex bg-cyan-900 text-white text-sm uppercase py-2">
-            <div className="lg:flex lg:flex-1 px-2 hidden">
-              <p style={{ flex: 1.5 }}>Device ID</p>
-              <p style={{ flex: 1.5 }}>Reg No</p>
+            <div className="lg:flex lg:flex-[1] lg:gap-2 px-2 hidden">
+              <p style={{ flex: 1.2 }}>Device ID</p>
+              <p style={{ flex: 1.3 }}>Reg No</p>
               <p style={{ flex: 1 }}>Customer No</p>
               <p style={{ flex: 1 }}>District</p>
               <p style={{ flex: 1 }}>Address</p>
+              <p style={{ flex: 1 }}>Service Fee</p>
               <p style={{ flex: 1 }}>Insert Date</p>
               <p style={{ flex: 1 }}>Pro_Ins_Date</p>
-              <p style={{ flex: 2 }}>Problems</p>
+              <p style={{ flex: 1.5 }}>Problems</p>
             </div>
             <p className="w-1/5 text-center hidden lg:block ">Action</p>
           </div>

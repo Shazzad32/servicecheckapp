@@ -8,15 +8,17 @@ const defaultServiceCheck = {
   address: "",
   district: "",
   problems: "",
+  service_fee: "0",
   probable_install_date: "",
 };
 
 const AddService = () => {
   return (
-    <div className="w-full flex flex-col items-center justify-center p-4 gap-8 sm:gap-4">
-      <div className="text-sm font-bold uppercase text-orange-400 md:text-3xl">
+    <div className="w-full flex flex-col justify-center items-center p-2 gap-8 sm:gap-4">
+      <p className="text-orange-500 uppercase text-3xl font-bold">
         Create Service
-      </div>
+      </p>
+
       <ServiceForm defaultServiceCheck={defaultServiceCheck} isUpdate={false} />
     </div>
   );
