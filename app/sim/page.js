@@ -38,6 +38,8 @@ const Sim = () => {
         return (
           (x.number &&
             x.number.toLowerCase().includes(searchTxt.toLowerCase())) ||
+          (x.kcp_number &&
+            x.kcp_number.toLowerCase().includes(searchTxt.toLowerCase())) ||
           (x.active_date &&
             x.active_date.toLowerCase().includes(searchTxt.toLowerCase()))
         );
@@ -85,10 +87,18 @@ const Sim = () => {
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <Button fontSize="large" className="bg-white text-black">
+          <Button
+            variant="contained"
+            fontSize="large"
+            className="bg-white text-black"
+          >
             <Link href="/">HOME</Link>
           </Button>
-          <Button fontSize="large" className="bg-white text-black">
+          <Button
+            variant="contained"
+            fontSize="large"
+            className="bg-white text-black"
+          >
             <Link href="/sim/add">
               <AddIcon fontSize="medium" />
             </Link>
@@ -108,9 +118,10 @@ const Sim = () => {
         <div className="h-[98%] w-[99%] shadow-2xl bg-white rounded-md overflow-auto lg:overflow-x-auto">
           <div className="w-full flex bg-cyan-900 text-white text-sm uppercase py-2">
             <div className="lg:flex lg:flex-1 px-2 hidden">
-              <p style={{ flex: 3.3 }}>Number</p>
-              <p style={{ flex: 3.3 }}>Active Date</p>
-              <p style={{ flex: 3.3 }}>Status</p>
+              <p style={{ flex: 2.25 }}>Number</p>
+              <p style={{ flex: 2.25 }}>KCP Number</p>
+              <p style={{ flex: 2.25 }}>Active Date</p>
+              <p style={{ flex: 2.25 }}>Status</p>
             </div>
             <p className="w-1/5 text-center hidden lg:block ">Action</p>
           </div>

@@ -3,6 +3,7 @@ import NumberForm from "@/components/NumberForm";
 
 const defaultNumber = {
   number: "",
+  kcp_number: "",
   active_date: "",
 };
 

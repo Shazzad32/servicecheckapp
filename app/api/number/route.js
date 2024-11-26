@@ -13,13 +13,14 @@ export const GET = async () => {
 };
 
 export const POST = async (req) => {
-  let { number, active_date } = await req.json();
+  let { number, kcp_number, active_date } = await req.json();
 
   try {
     await connectToDb();
 
     const newnumber = new Number({
       number,
+      kcp_number,
       active_date,
     });
 

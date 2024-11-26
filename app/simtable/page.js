@@ -15,9 +15,10 @@ const SimTable = ({ item }) => {
   return (
     <div className="h-auto w-full flex lg:flex-row lg:h-14 items-center shadow-none  border-b-4 lg:border-none lg:shadow-md">
       <div className="hidden font-bold text-pretty lg:flex lg:justify-evenly lg:items-center w-[80%] items-center p-2 text-sm">
-        <p style={{ flex: 3.3 }}>{item?.number}</p>
-        <p style={{ flex: 3.3 }}>{formattedDate}</p>
-        <div style={{ flex: 3.3 }}>
+        <p style={{ flex: 2.5 }}>{item?.number}</p>
+        <p style={{ flex: 2.5 }}>{item?.kcp_number}</p>
+        <p style={{ flex: 2.5 }}>{formattedDate}</p>
+        <div style={{ flex: 2.5 }}>
           <p
             className={`h-[30px]
           w-[60px] flex-[1.2] rounded-md ${
@@ -29,6 +30,9 @@ const SimTable = ({ item }) => {
       <div className="block lg:hidden w-full bg-white p-2">
         <p>
           <strong>Number:</strong> {item?.number}
+        </p>
+        <p>
+          <strong>KCP Number:</strong> {item?.kcp_number}
         </p>
         <p>
           <strong>Active Date:</strong> {formattedDate}

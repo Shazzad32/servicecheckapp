@@ -60,6 +60,14 @@ const NumberForm = ({ defaultNumber, isUpdate }) => {
         label="Number"
         fullWidth
       />
+      <TextField
+        type="text"
+        name="kcp_number"
+        value={number.kcp_number || ""}
+        onChange={handleChange}
+        label="KCP Number"
+        fullWidth
+      />
 
       <LocalizationProvider fullWidth dateAdapter={AdapterDayjs}>
         <DatePicker

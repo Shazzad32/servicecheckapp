@@ -23,10 +23,11 @@ export const PUT = async (req, { params }) => {
   try {
     let { id } = await params;
 
-    const { number, active_date, is_active } = await req.json();
+    const { number, kcp_number, active_date, is_active } = await req.json();
 
     const newNumber = await Number.findOne({ _id: id });
     newNumber.number = number;
+    newNumber.kcp_number = kcp_number;
     newNumber.active_date = active_date;
     newNumber.is_active = is_active;
 
