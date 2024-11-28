@@ -21,11 +21,16 @@ const Sim = () => {
     axios.get("/api/number").then((res) => {
       let data = res.data;
       let old = { ...state };
-      old.datas = data;
-      old.dataResults = data;
+      old.datas = sortDataByDate(data);
+      old.dataResults = sortDataByDate(data);
       setState(old);
     });
   };
+
+  const sortDataByDate = (data) =>
+    [...data].sort(
+      (a, b) => new Date(b?.active_date) - new Date(a?.active_date)
+    );
 
   const searchText = (e) => {
     let searchTxt = e.target.value.toLowerCase();
