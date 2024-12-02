@@ -5,6 +5,8 @@ import Link from "next/link";
 import { Button, Checkbox, Tooltip } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import axios from "axios";
+import FacebookTable from "../facebooktable/page";
+import { parseISO, format } from "date-fns";
 
 const ServiceCheck = () => {
   const [state, setState] = useState({
@@ -19,9 +21,8 @@ const ServiceCheck = () => {
   }, []);
 
   const getData = () => {
-    axios.get("/api/service-check").then((res) => {
+    axios.get("/api/user").then((res) => {
       let data = res.data;
-      console.log(data, "dkdk");
       let old = { ...state };
       old.datas = data;
       old.dataResults = data;
@@ -30,14 +31,11 @@ const ServiceCheck = () => {
     });
   };
 
-  const complete = state.datas.filter(
-    (item) => item.is_complete === true
-  ).length;
-  const dontcomplete = state.datas.filter(
-    (item) => item.is_complete === false
-  ).length;
+  const currentDayTask = state.datas.filter(
+    (item) => item.probabel_install_date === item.insert_date
+  );
 
-  const notComplete = state.datas.filter((item) => item.is_complete === false);
+  console.log(currentDayTask, "tataa");
 
   const searchText = (e) => {
     let searchTxt = e.target.value.toLowerCase();
@@ -48,22 +46,26 @@ const ServiceCheck = () => {
     } else {
       old.datas = [...old.dataResults].filter((x) => {
         return (
-          (x.device_id &&
-            x.device_id.toLowerCase().includes(searchTxt.toLowerCase())) ||
+          (x.customer_name &&
+            x.customer_name.toLowerCase().includes(searchTxt.toLowerCase())) ||
           (x.district &&
             x.district.toLowerCase().includes(searchTxt.toLowerCase())) ||
           (x.address &&
             x.address.toLowerCase().includes(searchTxt.toLowerCase())) ||
-          (x.reg_no &&
-            x.reg_no.toLowerCase().includes(searchTxt.toLowerCase())) ||
-          (x.problems &&
-            x.problems.toLowerCase().includes(searchTxt.toLowerCase())) ||
+          (x.customer_phone &&
+            String(x.customer_phone)
+              .toLowerCase()
+              .includes(searchTxt.toLowerCase())) ||
+          (x.comments &&
+            x.comments.toLowerCase().includes(searchTxt.toLowerCase())) ||
           (x.insert_date &&
             String(x.insert_date)
               .toLowerCase()
               .includes(searchTxt.toLowerCase())) ||
-          (x.customer_number &&
-            x.customer_number.toLowerCase().includes(searchTxt.toLowerCase()))
+          (x.probable_install_date &&
+            x.probable_install_date
+              .toLowerCase()
+              .includes(searchTxt.toLowerCase()))
         );
       });
     }
@@ -92,7 +94,7 @@ const ServiceCheck = () => {
 
     if (old.nextday) {
       old.datas = [...old.dataResults].filter((x) =>
-        nextDayFilter(x.probable_install_date)
+        nextDayFilter(x.probabel_install_date)
       );
     } else {
       old.datas = [...old.dataResults];
@@ -104,15 +106,15 @@ const ServiceCheck = () => {
     <div className="h-full w-full bg-green-600 flex flex-col items-center justify-center">
       <div className="h-[10vh] w-full bg-cyan-800 flex flex-wrap items-center justify-between px-4 py-2">
         <div className="text-white text-center flex items-center gap-2 lg:text-lg md:text-xl sm:text-sm uppercase">
-          Welcome to Service Check Platform
+          Welcome to Facebook Platform
           <div className="w-[140px] h-[30px] text-sm bg-white text-black rounded-md lg:flex items-center justify-center hidden">
             Pending :
-            <span className="text-red-700 font-bold ml-2">{dontcomplete}</span>
+            {/* <span className="text-red-700 font-bold ml-2">{dontcomplete}</span> */}
           </div>
           <div className="w-[120px] h-[30px] text-sm bg-white text-black rounded-md lg:flex items-center justify-center hidden">
             <Link href={"/servicecheck/done"}>
               Done :
-              <span className="text-red-700 font-bold ml-2">{complete}</span>
+              {/* <span className="text-red-700 font-bold ml-2">{complete}</span> */}
             </Link>
           </div>
         </div>
@@ -142,7 +144,7 @@ const ServiceCheck = () => {
             fontSize="large"
             className="bg-white text-black"
           >
-            <Link href="/servicecheck/add">
+            <Link href="/facebook/add">
               <AddIcon fontSize="medium" />
             </Link>
           </Button>
@@ -161,21 +163,19 @@ const ServiceCheck = () => {
         <div className="h-[98%] w-[99%] shadow-2xl bg-white rounded-md overflow-auto lg:overflow-x-auto">
           <div className="w-full flex bg-cyan-900 text-white text-sm uppercase py-2">
             <div className="lg:flex lg:flex-[1] lg:gap-2 px-2 hidden">
-              <p style={{ flex: 1.2 }}>Device ID</p>
-              <p style={{ flex: 1.3 }}>Reg No</p>
+              <p style={{ flex: 1 }}>Customer Name</p>
               <p style={{ flex: 1 }}>Customer No</p>
               <p style={{ flex: 1 }}>District</p>
               <p style={{ flex: 1 }}>Address</p>
-              <p style={{ flex: 1 }}>Service Fee</p>
-              <p style={{ flex: 1 }}>Insert Date</p>
+              <p style={{ flex: 1 }}>Insert_Date</p>
               <p style={{ flex: 1 }}>Pro_Ins_Date</p>
-              <p style={{ flex: 1.5 }}>Problems</p>
+              <p style={{ flex: 3 }}>Comments</p>
             </div>
             <p className="w-1/5 text-center hidden lg:block ">Action</p>
           </div>
           <div className="h-[92%] w-full overflow-auto">
-            {notComplete.map((item, i) => (
-              <ServiceTable key={i} item={item} />
+            {state.datas.map((item, i) => (
+              <FacebookTable key={i} item={item} />
             ))}
           </div>
         </div>
@@ -185,6 +185,7 @@ const ServiceCheck = () => {
 };
 
 export default ServiceCheck;
+
 // export const dynamic = "force-dynamic";
 
 // import ServiceTable from "../servicetable/page";

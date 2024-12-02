@@ -12,6 +12,31 @@ export const GET = async () => {
   }
 };
 
+// export const GET = async (req) => {
+//   try {
+//     await connectToDb();
+
+//     const url = new URL(req.url);
+//     const isActive = url.searchParams.get("is_active");
+
+//     console.log("Query parameter:", isActive); // Debug log
+
+//     let query = {};
+//     if (isActive !== null) {
+//       query.is_active = isActive === "true";
+//     }
+
+//     console.log("Database query:", query); // Debug log
+
+//     const data = await ServiceCheck.find(query);
+//     return new Response(JSON.stringify(data), { status: 200 });
+//   } catch (error) {
+//     return new Response(JSON.stringify({ message: error.message }), {
+//       status: 500,
+//     });
+//   }
+// };
+
 export const POST = async (req) => {
   let {
     device_id,

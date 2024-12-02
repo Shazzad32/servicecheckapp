@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <div className="h-[100vh] w-ful grid items-start">
       <div className="h-[12vh] w-full bg-white shadow-lg">
-        <div className="h-full w-[100%] lg:w-[20%]  flex justify-center items-center gap-6 ml-4 text-white font-semibold">
+        <div className="h-full w-[100%] lg:w-[30%]  flex justify-center items-center gap-6 ml-4 text-white font-semibold">
           {" "}
           <Button variant="contained" size="medium">
             <Link href="/servicecheck">Service</Link>
@@ -15,9 +15,15 @@ export default function Home() {
           <Button variant="contained" size="medium">
             <Link href="/sim">sim</Link>
           </Button>
+          <Button variant="contained" size="medium">
+            <Link href="/facebook">facebook</Link>
+          </Button>
+          <Button variant="contained" size="medium">
+            <Link href="/technician">Technician</Link>
+          </Button>
         </div>
-        <div className="h-full lg:w-[45%]"> </div>
-        <div className="h-full lg:w-[45%]"> </div>
+        <div className="h-full lg:w-[35%]"> </div>
+        <div className="h-full lg:w-[35%]"> </div>
       </div>
       <div className="h-[88vh] w-full flex items-center justify-center">
         <div className="h-[85vh] w-[90%] grid md:grid-cols-2">
