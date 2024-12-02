@@ -1,6 +1,14 @@
 "use client";
-
-import { Autocomplete, TextField, Switch, Button } from "@mui/material";
+import {
+  Autocomplete,
+  TextField,
+  Switch,
+  Button,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+} from "@mui/material";
 import React, { useState } from "react";
 import districtOptions from "@/data";
 import { useRouter } from "next/navigation";
@@ -12,12 +20,11 @@ import dayjs from "dayjs";
 import Textarea from "@mui/joy/Textarea";
 
 const FacebookForm = ({ defaultUser, isUpdate }) => {
+  const STATUS = ["RUNNING", "AGREE", "PENDING", "BLOCKED"];
   const router = useRouter();
   const [user, setUser] = useState({
     ...defaultUser,
   });
-
-  console.log(user, "..ddd");
 
   const saveUser = async () => {
     const res = await fetch("/api/user", {
@@ -74,6 +81,9 @@ const FacebookForm = ({ defaultUser, isUpdate }) => {
       ...prevValue,
       [name]: !prevValue[name],
     }));
+  };
+  const onStatusChange = (e) => {
+    setUser((old) => ({ ...old, state: e.target.value }));
   };
 
   return (
@@ -133,10 +143,27 @@ const FacebookForm = ({ defaultUser, isUpdate }) => {
           }}
         />
       </LocalizationProvider>
-      {isUpdate && (
+      <div className="w-full flex">
+        <FormControl className="w-[50%]">
+          <InputLabel id="demo-simple-select-label">State</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={user.state || ""}
+            label="State"
+            onChange={onStatusChange}
+          >
+            {STATUS.map((x, i) => (
+              <MenuItem key={i} value={x}>
+                {x}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+
         <p
           style={{
-            width: "80%",
+            width: "50%",
             height: 40,
             display: "flex",
             alignItems: "center",
@@ -154,17 +181,7 @@ const FacebookForm = ({ defaultUser, isUpdate }) => {
             />
           }
         </p>
-      )}
-      {/* <Textarea
-        type="text"
-        name="problems"
-        value={facebookinfo.comments || ""}
-        onChange={handleChange}
-        label="Description"
-        placeholder="Enter your description"
-        className="w-full border-black"
-      /> */}
-
+      </div>
       <Textarea
         type="text"
         name="commnets"
@@ -172,7 +189,7 @@ const FacebookForm = ({ defaultUser, isUpdate }) => {
         onChange={handleChange}
         label="commnets"
         placeholder="Type Here..."
-        minRows={2}
+        minRows={5}
         className="w-full"
       />
       <div className="flex w-full justify-end gap-4">

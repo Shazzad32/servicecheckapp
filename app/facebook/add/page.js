@@ -1,5 +1,4 @@
 import React from "react";
-import ServiceForm from "@/components/ServiceForm";
 import FacebookForm from "@/components/FacebookForm";
 
 const defaultUser = {
@@ -8,8 +7,10 @@ const defaultUser = {
   district: "",
   address: "",
   insert_date: "",
+  install_date: "",
   probabel_install_date: "",
   commnets: "",
+  state: "",
 };
 
 const AddService = () => {

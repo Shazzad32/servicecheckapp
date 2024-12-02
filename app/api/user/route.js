@@ -19,8 +19,9 @@ export const POST = async (req) => {
     district,
     address,
     probabel_install_date,
+    install_date,
     commnets,
-    status,
+    state,
   } = await req.json();
 
   try {
@@ -32,8 +33,9 @@ export const POST = async (req) => {
       district,
       address,
       probabel_install_date,
+      install_date,
       commnets,
-      status,
+      state,
     });
 
     await newuser.save();

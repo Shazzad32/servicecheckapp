@@ -2,8 +2,7 @@ import { FiEdit } from "react-icons/fi";
 import Link from "next/link";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
-const FacebookTable = ({ item }) => {
-  console.log("facebook item is ", item);
+const ServiceDoneTable = ({ item }) => {
   let formattedDate = "N/A";
   let probale_install_date_formate = "N/A";
 
@@ -14,18 +13,30 @@ const FacebookTable = ({ item }) => {
     const year = String(date.getFullYear()).slice(-4);
     formattedDate = `${day}-${month}-${year}`;
   }
-  if (item && item.probabel_install_date) {
-    const date = new Date(item.probabel_install_date);
+  if (item && item.probable_install_date) {
+    const date = new Date(item.probable_install_date);
     const day = String(date.getDate()).padStart(2, "0");
     const month = String(date.getMonth() + 1).padStart(2, "0");
     const year = String(date.getFullYear()).slice(-4);
     probale_install_date_formate = `${day}-${month}-${year}`;
   }
 
+  console.log(item?.service_fee);
+
   return (
     <div className="h-auto w-full flex lg:flex-row lg:h-14 items-center shadow-none  border-b-4 lg:border-none lg:shadow-md">
       <div className="hidden text-pretty lg:flex lg:gap-5 lg:justify-evenly lg:items-center w-[80%] items-center p-2 text-sm">
-        <p style={{ flex: 1 }}>{item?.customer_name}</p>
+        <p style={{ flex: 1.2 }}>{item?.device_id}</p>
+        <p
+          style={{
+            flex: 1.3,
+            whiteSpace: "nowrap",
+            textOverflow: "ellipsis",
+            overflow: "hidden",
+          }}
+        >
+          {item?.reg_no}
+        </p>
         <p
           style={{
             flex: 1,
@@ -34,7 +45,7 @@ const FacebookTable = ({ item }) => {
             overflow: "hidden",
           }}
         >
-          {item?.customer_phone}
+          {item?.customer_number}
         </p>
         <p
           style={{
@@ -56,20 +67,31 @@ const FacebookTable = ({ item }) => {
         >
           {item?.address}
         </p>
+        <p style={{ flex: 1 }}>{item?.service_fee}</p>
         <p style={{ flex: 1 }}>{formattedDate}</p>
         <p style={{ flex: 1 }}>{probale_install_date_formate}</p>
-        <p style={{ flex: 3 }}>{item?.commnets}</p>
+        <p
+          style={{
+            flex: 1.5,
+            whiteSpace: "nowrap",
+            textOverflow: "ellipsis",
+            overflow: "hidden",
+          }}
+        >
+          {item?.problems}
+        </p>
       </div>
       <div className="block lg:hidden w-full bg-white p-2">
         <p>
           <strong>
-            Customer Name:
-            <span className="text-red-700">{item?.customer_name}</span>
+            Device ID: <span className="text-red-700">{item?.device_id}</span>
           </strong>
         </p>
-
         <p>
-          <strong>Customer No:</strong> {item?.customer_phone}
+          <strong>Reg No:</strong> {item?.reg_no}
+        </p>
+        <p>
+          <strong>Customer No:</strong> {item?.customer_number}
         </p>
         <p>
           <strong>District:</strong> {item?.district}
@@ -77,7 +99,9 @@ const FacebookTable = ({ item }) => {
         <p>
           <strong>Address:</strong> {item?.address}
         </p>
-
+        <p>
+          <strong>Service Fee:</strong> {item?.service_fee}
+        </p>
         <p>
           <strong>Insert Date:</strong> {formattedDate}
         </p>
@@ -85,14 +109,14 @@ const FacebookTable = ({ item }) => {
           <strong>prob Install Date:</strong> {probale_install_date_formate}
         </p>
         <p>
-          <strong>Commentss:</strong> {item?.comments}
+          <strong>Problems:</strong> {item?.problems}
         </p>
       </div>
       <div className="flex flex-col items-center justify-center  gap-6 w-[30%] lg:w-[20%] lg:mt-0 lg:flex lg:flex-row lg:gap-12">
-        <Link href={`/facebook/${item?._id}/update`}>
+        <Link href={`/servicecheck/${item?._id}/update`}>
           <FiEdit className="text-black" />
         </Link>
-        <Link href={`/facebook/${item?._id}/delete`}>
+        <Link href={`/servicecheck/${item?._id}/delete`}>
           <DeleteForeverIcon className="text-red-700" />
         </Link>
         <div
@@ -106,4 +130,4 @@ const FacebookTable = ({ item }) => {
   );
 };
 
-export default FacebookTable;
+export default ServiceDoneTable;

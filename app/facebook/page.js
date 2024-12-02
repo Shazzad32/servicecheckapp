@@ -1,12 +1,10 @@
 "use client";
 import { useState, useEffect } from "react";
-import ServiceTable from "../servicetable/page";
 import Link from "next/link";
 import { Button, Checkbox, Tooltip } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import axios from "axios";
-import FacebookTable from "../facebooktable/page";
-import { parseISO, format } from "date-fns";
+import FacebookTable from "../facebook/facebooktable/page";
 
 const ServiceCheck = () => {
   const [state, setState] = useState({
@@ -31,11 +29,13 @@ const ServiceCheck = () => {
     });
   };
 
-  const currentDayTask = state.datas.filter(
-    (item) => item.probabel_install_date === item.insert_date
-  );
+  let today = new Date();
 
-  console.log(currentDayTask, "tataa");
+  const todayTask = state.datas.filter(
+    (item) => item.probabel_install_date && item.insert_date === today
+  );
+  const completeTask = state.datas.filter((item) => item.is_complete === true);
+  const pendingTask = state.datas.filter((item) => item.is_complete === false);
 
   const searchText = (e) => {
     let searchTxt = e.target.value.toLowerCase();
@@ -70,7 +70,6 @@ const ServiceCheck = () => {
       });
     }
     old.searchItem = searchTxt;
-    console.log(old.searchItem);
     setState(old);
   };
 
@@ -109,12 +108,16 @@ const ServiceCheck = () => {
           Welcome to Facebook Platform
           <div className="w-[140px] h-[30px] text-sm bg-white text-black rounded-md lg:flex items-center justify-center hidden">
             Pending :
-            {/* <span className="text-red-700 font-bold ml-2">{dontcomplete}</span> */}
+            <span className="text-red-700 font-bold ml-2">
+              {pendingTask.length}
+            </span>
           </div>
           <div className="w-[120px] h-[30px] text-sm bg-white text-black rounded-md lg:flex items-center justify-center hidden">
-            <Link href={"/servicecheck/done"}>
+            <Link href={"/facebook/done"}>
               Done :
-              {/* <span className="text-red-700 font-bold ml-2">{complete}</span> */}
+              <span className="text-red-700 font-bold ml-2">
+                {completeTask.length}
+              </span>
             </Link>
           </div>
         </div>
@@ -163,18 +166,19 @@ const ServiceCheck = () => {
         <div className="h-[98%] w-[99%] shadow-2xl bg-white rounded-md overflow-auto lg:overflow-x-auto">
           <div className="w-full flex bg-cyan-900 text-white text-sm uppercase py-2">
             <div className="lg:flex lg:flex-[1] lg:gap-2 px-2 hidden">
-              <p style={{ flex: 1 }}>Customer Name</p>
-              <p style={{ flex: 1 }}>Customer No</p>
-              <p style={{ flex: 1 }}>District</p>
-              <p style={{ flex: 1 }}>Address</p>
-              <p style={{ flex: 1 }}>Insert_Date</p>
-              <p style={{ flex: 1 }}>Pro_Ins_Date</p>
-              <p style={{ flex: 3 }}>Comments</p>
+              <p style={{ flex: 1.2 }}>Customer Name</p>
+              <p style={{ flex: 1.2 }}>Customer No</p>
+              <p style={{ flex: 1.2 }}>District</p>
+              <p style={{ flex: 1.2 }}>Address</p>
+              <p style={{ flex: 1.2 }}>Insert_Date</p>
+              <p style={{ flex: 1.2 }}>Pro_Ins_Date</p>
+              <p style={{ flex: 1.2 }}>State</p>
+              <p style={{ flex: 1.6 }}>Comments</p>
             </div>
             <p className="w-1/5 text-center hidden lg:block ">Action</p>
           </div>
           <div className="h-[92%] w-full overflow-auto">
-            {state.datas.map((item, i) => (
+            {pendingTask.map((item, i) => (
               <FacebookTable key={i} item={item} />
             ))}
           </div>

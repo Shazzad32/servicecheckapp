@@ -7,18 +7,13 @@ import { Button } from "@mui/material";
 const DeleteUser = ({ data }) => {
   const router = useRouter();
   const user = { ...data };
-
   const removeItem = async () => {
     const confirmed = confirm("Are you sure?");
 
     if (confirmed) {
-      const res = await fetch(
-        `${process.env.URL}/api/user/${(data, data._id)}`,
-        {
-          method: "DELETE",
-        }
-      );
-      console.log("respo=", res);
+      const res = await fetch(`/api/user/${(data, data._id)}`, {
+        method: "DELETE",
+      });
 
       if (res.ok) {
         router.refresh();
