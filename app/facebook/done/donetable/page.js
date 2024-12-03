@@ -86,7 +86,7 @@ const DoneFacebookTable = ({ item }) => {
           <strong>prob Install Date:</strong> {probale_install_date_formate}
         </p>
         <p>
-          <strong>Commentss:</strong> {item?.comments}
+          <strong>Comments:</strong> {item?.comments}
         </p>
       </div>
       <div className="flex flex-col items-center justify-center  gap-6 w-[30%] lg:w-[20%] lg:mt-0 lg:flex lg:flex-row lg:gap-12">
