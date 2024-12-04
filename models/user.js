@@ -45,14 +45,13 @@ const userSchema = new Schema({
   is_complete: { type: Boolean, default: false },
 });
 
-// Ensure uniqueness of customer_phone
 userSchema.index({ customer_phone: 1 });
 
 userSchema.pre("save", function (next) {
   if (this.is_complete && !this.install_date) {
-    this.install_date = new Date(); // Automatically set to the current date
+    this.install_date = new Date();
   } else if (!this.is_complete) {
-    this.install_date = undefined; // Clear install_date if is_complete is false
+    this.install_date = undefined;
   }
   next();
 });

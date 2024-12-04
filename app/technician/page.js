@@ -63,7 +63,8 @@ const Technician = () => {
   return (
     <div className="h-full w-full bg-green-600 flex flex-col items-center justify-center">
       <div className="h-[10vh] w-full bg-cyan-800 flex flex-wrap items-center justify-between px-4 py-2">
-        <div className="text-white text-center flex items-center gap-2 lg:text-lg md:text-xl sm:text-sm uppercase">
+        <div className="w-[5%] lg:w-[5%]"></div>
+        <div className="w-[70%] text-white text-center flex items-center gap-2 lg:text-lg md:text-xl sm:text-sm uppercase">
           Welcome to Technician Platform
           <div className="w-[140px] h-[30px] text-sm bg-white text-black rounded-md lg:flex items-center justify-center hidden">
             Total :
@@ -72,14 +73,7 @@ const Technician = () => {
             </span>
           </div>
         </div>
-        <div className="flex items-center gap-2">
-          <Button
-            variant="contained"
-            fontSize="large"
-            className="bg-white text-black"
-          >
-            <Link href="/">HOME</Link>
-          </Button>
+        <div className="w-[25%] flex items-center gap-2">
           <Button
             variant="contained"
             fontSize="large"

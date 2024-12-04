@@ -3,7 +3,6 @@ import Link from "next/link";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 const DoneFacebookTable = ({ item }) => {
-  console.log("facebook item is ", item);
   let formattedDate = "N/A";
   let probale_install_date_formate = "N/A";
 
@@ -25,7 +24,16 @@ const DoneFacebookTable = ({ item }) => {
   return (
     <div className="h-auto w-full flex lg:flex-row lg:h-14 items-center shadow-none  border-b-4 lg:border-none lg:shadow-md">
       <div className="hidden text-pretty lg:flex lg:gap-5 lg:justify-evenly lg:items-center w-[80%] items-center p-2 text-sm">
-        <p style={{ flex: 1.2 }}>{item?.customer_name}</p>
+        <p
+          style={{
+            flex: 1.2,
+            whiteSpace: "nowrap",
+            textOverflow: "ellipsis",
+            overflow: "hidden",
+          }}
+        >
+          {item?.customer_name}
+        </p>
         <p
           style={{
             flex: 1.2,
@@ -59,7 +67,16 @@ const DoneFacebookTable = ({ item }) => {
         <p style={{ flex: 1.2 }}>{formattedDate}</p>
         <p style={{ flex: 1.2 }}>{probale_install_date_formate}</p>
         <p style={{ flex: 1.2 }}>{item?.state}</p>
-        <p style={{ flex: 1.6 }}>{item?.commnets}</p>
+        <p
+          style={{
+            flex: 1.6,
+            whiteSpace: "nowrap",
+            textOverflow: "ellipsis",
+            overflow: "hidden",
+          }}
+        >
+          {item?.comments}
+        </p>
       </div>
       <div className="block lg:hidden w-full bg-white p-2">
         <p>

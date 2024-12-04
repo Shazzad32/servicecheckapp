@@ -74,7 +74,7 @@ export const PUT = async (req, { params }) => {
       address,
       district,
       state,
-      commnets,
+      comments,
       insert_date,
       probabel_install_date,
       install_date,
@@ -87,7 +87,7 @@ export const PUT = async (req, { params }) => {
     newUser.address = address;
     newUser.district = district;
     newUser.insert_date = insert_date;
-    newUser.commnets = commnets;
+    newUser.comments = comments;
     newUser.state = state;
     newUser.probabel_install_date = probabel_install_date;
     newUser.install_date = install_date;

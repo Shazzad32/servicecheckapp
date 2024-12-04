@@ -29,48 +29,25 @@ const ServiceCheck = () => {
     });
   };
 
-  let today = new Date();
-
   const todayTask = state.datas.filter(
-    (item) => item.probabel_install_date && item.insert_date === today
+    (item) => item.insert_date === new Date()
   );
   const completeTask = state.datas.filter((item) => item.is_complete === true);
   const pendingTask = state.datas.filter((item) => item.is_complete === false);
 
-  const searchText = (e) => {
-    let searchTxt = e.target.value.toLowerCase();
-    console.log(searchTxt);
-    let old = { ...state };
-    if (searchTxt === "") {
-      old.datas = [...old.dataResults];
-    } else {
-      old.datas = [...old.dataResults].filter((x) => {
-        return (
-          (x.customer_name &&
-            x.customer_name.toLowerCase().includes(searchTxt.toLowerCase())) ||
-          (x.district &&
-            x.district.toLowerCase().includes(searchTxt.toLowerCase())) ||
-          (x.address &&
-            x.address.toLowerCase().includes(searchTxt.toLowerCase())) ||
-          (x.customer_phone &&
-            String(x.customer_phone)
-              .toLowerCase()
-              .includes(searchTxt.toLowerCase())) ||
-          (x.comments &&
-            x.comments.toLowerCase().includes(searchTxt.toLowerCase())) ||
-          (x.insert_date &&
-            String(x.insert_date)
-              .toLowerCase()
-              .includes(searchTxt.toLowerCase())) ||
-          (x.probable_install_date &&
-            x.probable_install_date
-              .toLowerCase()
-              .includes(searchTxt.toLowerCase()))
-        );
-      });
-    }
-    old.searchItem = searchTxt;
-    setState(old);
+  const handleSearch = (e) => {
+    const searchTxt = e.target.value.toLowerCase();
+    setState((prev) => ({
+      ...prev,
+      searchItem: searchTxt,
+      datas: searchTxt
+        ? prev.dataResults.filter((x) =>
+            Object.keys(x).some((key) =>
+              x[key]?.toString().toLowerCase().includes(searchTxt)
+            )
+          )
+        : [...prev.dataResults],
+    }));
   };
 
   const nextDayFilter = (date) => {
@@ -104,7 +81,8 @@ const ServiceCheck = () => {
   return (
     <div className="h-full w-full bg-green-600 flex flex-col items-center justify-center">
       <div className="h-[10vh] w-full bg-cyan-800 flex flex-wrap items-center justify-between px-4 py-2">
-        <div className="text-white text-center flex items-center gap-2 lg:text-lg md:text-xl sm:text-sm uppercase">
+        <div className="w-[5%] lg:w-[5%]"></div>
+        <div className="w-[65%] text-white text-center flex items-center gap-2 lg:text-lg md:text-xl sm:text-sm uppercase">
           Welcome to Facebook Platform
           <div className="w-[140px] h-[30px] text-sm bg-white text-black rounded-md lg:flex items-center justify-center hidden">
             Pending :
@@ -121,7 +99,7 @@ const ServiceCheck = () => {
             </Link>
           </div>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="w-[30%] flex items-center gap-2">
           <p className="text-white hidden uppercase lg:flex">Tomorrow</p>
           <Tooltip title="Next Day" enterDelay={200} leaveDelay={200}>
             <Checkbox
@@ -140,13 +118,6 @@ const ServiceCheck = () => {
             fontSize="large"
             className="bg-white text-black"
           >
-            <Link href="/">HOME</Link>
-          </Button>
-          <Button
-            variant="contained"
-            fontSize="large"
-            className="bg-white text-black"
-          >
             <Link href="/facebook/add">
               <AddIcon fontSize="medium" />
             </Link>
@@ -157,7 +128,7 @@ const ServiceCheck = () => {
             className="rounded-md p-2"
             placeholder="Search..."
             value={state.searchItem}
-            onChange={searchText}
+            onChange={handleSearch}
           />
         </div>
       </div>
@@ -189,100 +160,142 @@ const ServiceCheck = () => {
 };
 
 export default ServiceCheck;
-
-// export const dynamic = "force-dynamic";
-
-// import ServiceTable from "../servicetable/page";
+// "use client";
+// import { useState, useEffect } from "react";
 // import Link from "next/link";
-// import Search from "@/components/Search";
-// import { Button } from "@mui/material";
+// import { Button, Checkbox, Tooltip } from "@mui/material";
 // import AddIcon from "@mui/icons-material/Add";
-// const ServiceCheck = async () => {
-//   const getData = async () => {
-//     try {
-//       const res = await fetch(`${process.env.URL}/api/service-check`, {
-//         method: "GET",
-//         cache: "no-store",
-//       });
+// import axios from "axios";
+// import FacebookTable from "../facebook/facebooktable/page";
 
-//       if (!res.ok) {
-//         throw new Error(`Error fetching data: ${res.status}`);
-//       }
+// const ServiceCheck = () => {
+//   const [state, setState] = useState({
+//     datas: [],
+//     dataResults: [],
+//     searchItem: "",
+//     nextday: false,
+//   });
 
-//       return await res.json();
-//     } catch (error) {
-//       console.error("Error fetching data:", error);
-//       return { error: "Failed to fetch data" };
-//     }
+//   useEffect(() => {
+//     axios.get("/api/user").then((res) => {
+//       const data = res.data;
+//       setState((prev) => ({ ...prev, datas: data, dataResults: data }));
+//     });
+//   }, []);
+
+//   const todayTask = state.datas.filter(
+//     (item) => item.insert_date === new Date()
+//   );
+//   const completeTask = state.datas.filter((item) => item.is_complete);
+//   const pendingTask = state.datas.filter((item) => !item.is_complete);
+
+//   const handleSearch = (e) => {
+//     const searchTxt = e.target.value.toLowerCase();
+//     setState((prev) => ({
+//       ...prev,
+//       searchItem: searchTxt,
+//       datas: searchTxt
+//         ? prev.dataResults.filter((x) =>
+//             Object.keys(x).some((key) =>
+//               x[key]?.toString().toLowerCase().includes(searchTxt)
+//             )
+//           )
+//         : [...prev.dataResults],
+//     }));
 //   };
 
-//   let datas = await getData();
+//   const toggleNextDay = () => {
+//     setState((prev) => ({
+//       ...prev,
+//       nextday: !prev.nextday,
+//       datas: !prev.nextday
+//         ? prev.dataResults.filter((x) => nextDayFilter(x.probabel_install_date))
+//         : [...prev.dataResults],
+//     }));
+//   };
 
-//   const trueCount = datas.filter((item) => item.is_complete === true).length;
-//   const total = datas.length;
-//   // console.log("dajklfs", datas);
+//   const nextDayFilter = (date) => {
+//     const ddd = new Date(date);
+//     const today = new Date();
+//     today.setHours(23, 59, 59);
+//     const nextDay = new Date(today);
+//     nextDay.setDate(nextDay.getDate() + 1);
+//     return ddd >= today && ddd <= nextDay;
+//   };
 
 //   return (
-//     <div className="h-full w-full bg-green-600 flex flex-col items-center justify-center">
-//       <div className="h-[10vh] w-full bg-cyan-800 flex flex-wrap items-center justify-between px-4 py-2">
-//         <div className="text-white text-center flex items-center gap-2 lg:text-lg md:text-xl sm:text-sm uppercase">
-//           Welcome to Service Check Platform
-//           <div className="w-[120px] h-[30px] text-sm bg-white text-black rounded-md lg:flex items-center justify-center hidden">
-//             Total : <span className="text-red-700 font-bold ml-2">{total}</span>
+//     <div className="h-full w-full bg-green-600 flex flex-col items-center">
+//       <header className="h-[10vh] w-full bg-cyan-800 flex items-center justify-between px-4">
+//         <div className="text-white flex items-center gap-2 uppercase">
+//           Welcome to Facebook Platform
+//           <div className="bg-white text-black rounded-md hidden lg:flex items-center px-2">
+//             Pending:{" "}
+//             <span className="text-red-700 font-bold">{pendingTask.length}</span>
 //           </div>
-//           <div className="w-[120px] h-[30px] text-sm bg-white text-black rounded-md lg:flex items-center justify-center hidden">
-//             <Link href={"/completetable"}>
-//               Complete :{" "}
-//               <span className="text-red-700 font-bold ml-2">{trueCount}</span>
+//           <div className="bg-white text-black rounded-md hidden lg:flex items-center px-2">
+//             <Link href="/facebook/done">
+//               Done:{" "}
+//               <span className="text-red-700 font-bold">
+//                 {completeTask.length}
+//               </span>
 //             </Link>
 //           </div>
 //         </div>
 //         <div className="flex items-center gap-2">
-//           <Button
-//             variant="contained"
-//             fontSize="large"
-//             className="bg-white text-black"
-//           >
+//           <Tooltip title="Next Day">
+//             <Checkbox
+//               style={{ color: "white" }}
+//               checked={state.nextday}
+//               onChange={toggleNextDay}
+//             />
+//           </Tooltip>
+//           <Button variant="contained" className="bg-white text-black">
 //             <Link href="/">HOME</Link>
 //           </Button>
-//           <Button
-//             variant="contained"
-//             fontSize="large"
-//             className="bg-white text-black"
-//           >
-//             <Link href="/servicecheck/add">
+//           <Button variant="contained" className="bg-white text-black">
+//             <Link href="/facebook/add">
 //               <AddIcon fontSize="medium" />
 //             </Link>
 //           </Button>
-
-//           <Search initialData={datas} />
+//           <input
+//             type="search"
+//             placeholder="Search..."
+//             value={state.searchItem}
+//             onChange={handleSearch}
+//             className="rounded-md p-2"
+//           />
 //         </div>
-//       </div>
-
-//       <div className="h-[90vh] w-full bg-gray-500 flex items-center justify-center">
-//         <div className="h-[98%] w-[99%] shadow-2xl bg-white rounded-md overflow-auto lg:overflow-x-auto">
-//           <div className="w-full flex bg-cyan-900 text-white text-sm uppercase py-2">
-//             <div className="lg:flex lg:flex-1 px-2 hidden">
-//               <p style={{ flex: 1.5 }}>Device ID</p>
-//               <p style={{ flex: 1.5 }}>Reg No</p>
-//               <p style={{ flex: 1 }}>Customer No</p>
-//               <p style={{ flex: 1 }}>District</p>
-//               <p style={{ flex: 1 }}>Address</p>
-//               <p style={{ flex: 1 }}>Insert Date</p>
-//               <p style={{ flex: 1 }}>Pro_Ins_Date</p>
-//               <p style={{ flex: 2 }}>Problems</p>
+//       </header>
+//       <main className="h-[90vh] w-full bg-gray-500 flex justify-center">
+//         <div className="h-[98%] w-[99%] bg-white rounded-md overflow-auto shadow-2xl">
+//           <div className="w-full bg-cyan-900 text-white text-sm uppercase py-2 flex">
+//             <div className="lg:flex lg:flex-1 gap-2 lg:justify-evenly px-2 hidden">
+//               {[
+//                 "Customer Name",
+//                 "Customer No",
+//                 "District",
+//                 "Address",
+//                 "Insert_Date",
+//                 "Pro_Ins_Date",
+//                 "State",
+//                 "Comments",
+//               ].map((header) => (
+//                 <p key={header} className="flex-1.2">
+//                   {header}
+//                 </p>
+//               ))}
 //             </div>
-//             <p className="w-1/5 text-center hidden lg:block ">Action</p>
+//             <p className="w-1/5 text-center hidden lg:block">Action</p>
 //           </div>
-//           <div className="h-[92%] w-full overflow-auto">
-//             {datas &&
-//               datas.map((item, i) => <ServiceTable key={i} item={item} />)}
+//           <div className="h-[92%] overflow-auto">
+//             {pendingTask.map((item, i) => (
+//               <FacebookTable key={i} item={item} />
+//             ))}
 //           </div>
 //         </div>
-//       </div>
+//       </main>
 //     </div>
 //   );
 // };
 
 // export default ServiceCheck;
-// export const dynamic = "force-dynamic";

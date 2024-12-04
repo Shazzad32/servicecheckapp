@@ -20,7 +20,7 @@ import dayjs from "dayjs";
 import Textarea from "@mui/joy/Textarea";
 
 const FacebookForm = ({ defaultUser, isUpdate }) => {
-  const STATUS = ["RUNNING", "AGREE", "PENDING", "BLOCKED"];
+  const STATUS = ["AGREE", "PENDING", "BLOCKED"];
   const router = useRouter();
   const [user, setUser] = useState({
     ...defaultUser,
@@ -43,7 +43,6 @@ const FacebookForm = ({ defaultUser, isUpdate }) => {
   };
 
   const updateUser = async () => {
-    console.log("ddd", user);
     const res = await fetch(`/api/user/${user._id}`, {
       method: "PUT",
       headers: {
@@ -58,9 +57,6 @@ const FacebookForm = ({ defaultUser, isUpdate }) => {
     router.push("/facebook");
   };
 
-  // const handleChange = (e) => {
-  //   setUser({ ...user, [e.target.name]: e.target.value });
-  // };
   const handleChange = (event) => {
     const { name, value } = event.target;
     setUser((prevState) => ({
@@ -101,7 +97,7 @@ const FacebookForm = ({ defaultUser, isUpdate }) => {
         name="customer_phone"
         value={user.customer_phone || ""}
         onChange={handleChange}
-        label="Customer Phoner"
+        label="Customer Number"
         fullWidth
       />
 
@@ -112,7 +108,9 @@ const FacebookForm = ({ defaultUser, isUpdate }) => {
         onChange={(e, newValue) =>
           handleAutocompleteChange("district", newValue)
         }
-        renderInput={(params) => <TextField {...params} label="District" />}
+        renderInput={(params) => (
+          <TextField {...params} label="District Name" />
+        )}
       />
       <TextField
         type="text"
@@ -184,10 +182,10 @@ const FacebookForm = ({ defaultUser, isUpdate }) => {
       </div>
       <Textarea
         type="text"
-        name="commnets"
-        value={user.commnets || ""}
+        name="comments"
+        value={user.comments || ""}
         onChange={handleChange}
-        label="commnets"
+        label="Comments"
         placeholder="Type Here..."
         minRows={5}
         className="w-full"

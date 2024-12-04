@@ -20,7 +20,7 @@ export const POST = async (req) => {
     address,
     probabel_install_date,
     install_date,
-    commnets,
+    comments,
     state,
   } = await req.json();
 
@@ -34,7 +34,7 @@ export const POST = async (req) => {
       address,
       probabel_install_date,
       install_date,
-      commnets,
+      comments,
       state,
     });
 

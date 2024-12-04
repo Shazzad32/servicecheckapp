@@ -3,7 +3,6 @@ import Link from "next/link";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 const FacebookTable = ({ item }) => {
-  console.log("facebook item is ", item);
   let formattedDate = "N/A";
   let probale_install_date_formate = "N/A";
 
@@ -22,10 +21,28 @@ const FacebookTable = ({ item }) => {
     probale_install_date_formate = `${day}-${month}-${year}`;
   }
 
+  const getColorClass = (state) => {
+    const stateColors = {
+      AGREE: "bg-green-600",
+      BLOCKED: "bg-red-600",
+      PENDING: "bg-pink-600",
+    };
+    return stateColors[state] || "bg-gray-400"; // Default color if state doesn't match
+  };
+
   return (
     <div className="h-auto w-full flex lg:flex-row lg:h-14 items-center shadow-none  border-b-4 lg:border-none lg:shadow-md">
-      <div className="hidden text-pretty lg:flex lg:gap-5 lg:justify-evenly lg:items-center w-[80%] items-center p-2 text-sm">
-        <p style={{ flex: 1.2 }}>{item?.customer_name}</p>
+      <div className="hidden text-pretty lg:flex lg:gap-5 lg:justify-evenly lg:items-center w-[80%] items-center p-2 text-md">
+        <p
+          style={{
+            flex: 1.2,
+            whiteSpace: "nowrap",
+            textOverflow: "ellipsis",
+            overflow: "hidden",
+          }}
+        >
+          {item?.customer_name}
+        </p>
         <p
           style={{
             flex: 1.2,
@@ -59,7 +76,16 @@ const FacebookTable = ({ item }) => {
         <p style={{ flex: 1.2 }}>{formattedDate}</p>
         <p style={{ flex: 1.2 }}>{probale_install_date_formate}</p>
         <p style={{ flex: 1.2 }}>{item?.state}</p>
-        <p style={{ flex: 1.6 }}>{item?.commnets}</p>
+        <p
+          style={{
+            flex: 1.6,
+            whiteSpace: "nowrap",
+            textOverflow: "ellipsis",
+            overflow: "hidden",
+          }}
+        >
+          {item?.comments}
+        </p>
       </div>
       <div className="block lg:hidden w-full bg-white p-2">
         <p>
@@ -86,7 +112,7 @@ const FacebookTable = ({ item }) => {
           <strong>prob Install Date:</strong> {probale_install_date_formate}
         </p>
         <p>
-          <strong>Comments:</strong> {item?.commnets}
+          <strong>Comments:</strong> {item?.comments}
         </p>
       </div>
       <div className="flex flex-col items-center justify-center  gap-6 w-[30%] lg:w-[20%] lg:mt-0 lg:flex lg:flex-row lg:gap-12">
@@ -97,10 +123,9 @@ const FacebookTable = ({ item }) => {
           <DeleteForeverIcon className="text-red-700" />
         </Link>
         <div
-          className={`h-[20px]
-          w-[30px] lg:h-[20px] lg:w-[50px] rounded-md ${
-            item?.is_complete ? "bg-green-600" : "bg-red-600"
-          }`}
+          className={`h-[20px] w-[30px] lg:h-[20px] lg:w-[50px] rounded-md ${getColorClass(
+            item?.state
+          )}`}
         ></div>
       </div>
     </div>

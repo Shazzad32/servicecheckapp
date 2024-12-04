@@ -102,9 +102,10 @@ const ServiceCheck = () => {
 
   return (
     <div className="h-full w-full bg-green-600 flex flex-col items-center justify-center">
-      <div className="h-[10vh] w-full bg-cyan-800 flex flex-wrap items-center justify-between px-4 py-2">
-        <div className="text-white text-center flex items-center gap-2 lg:text-lg md:text-xl sm:text-sm uppercase">
-          Welcome to Service Check Platform
+      <div className="h-[10vh] w-full bg-cyan-800 flex flex-wrap items-center justify-between px-5 py-2">
+        <div className="w-[5%] lg:w-[5%]"></div>
+        <div className="text-white w-[65%] text-center flex items-center gap-2 lg:text-lg md:text-xl sm:text-sm uppercase">
+          <h1 className="text-center"> Welcome to Service Check Platform</h1>
           <div className="w-[140px] h-[30px] text-sm bg-white text-black rounded-md lg:flex items-center justify-center hidden">
             Pending :
             <span className="text-red-700 font-bold ml-2">{dontcomplete}</span>
@@ -116,7 +117,7 @@ const ServiceCheck = () => {
             </Link>
           </div>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 w-[30%]">
           <p className="text-white hidden uppercase lg:flex">Tomorrow</p>
           <Tooltip title="Next Day" enterDelay={200} leaveDelay={200}>
             <Checkbox
@@ -130,13 +131,6 @@ const ServiceCheck = () => {
               onChange={onCheckChanged}
             />
           </Tooltip>
-          <Button
-            variant="contained"
-            fontSize="large"
-            className="bg-white text-black"
-          >
-            <Link href="/">HOME</Link>
-          </Button>
           <Button
             variant="contained"
             fontSize="large"
