@@ -103,21 +103,20 @@ const ServiceCheck = () => {
   return (
     <div className="h-full w-full bg-green-600 flex flex-col items-center justify-center">
       <div className="h-[10vh] w-full bg-cyan-800 flex flex-wrap items-center justify-between px-5 py-2">
-        <div className="w-[5%] lg:w-[5%]"></div>
-        <div className="text-white w-[65%] text-center flex items-center gap-2 lg:text-lg md:text-xl sm:text-sm uppercase">
-          <h1 className="text-center"> Welcome to Service Check Platform</h1>
-          <div className="w-[140px] h-[30px] text-sm bg-white text-black rounded-md lg:flex items-center justify-center hidden">
+        <div className="text-white text-center flex items-center gap-2 lg:text-lg md:text-xl sm:text-sm uppercase lg:p-0 sm:p-2">
+          Service Check Platform
+          <div className="w-[110px] h-[30px] text-sm bg-white text-black rounded-md lg:flex items-center justify-center hidden">
             Pending :
             <span className="text-red-700 font-bold ml-2">{dontcomplete}</span>
           </div>
-          <div className="w-[120px] h-[30px] text-sm bg-white text-black rounded-md lg:flex items-center justify-center hidden">
+          <div className="w-[110px] h-[30px] text-sm bg-white text-black rounded-md lg:flex items-center justify-center hidden">
             <Link href={"/servicecheck/done"}>
               Done :
               <span className="text-red-700 font-bold ml-2">{complete}</span>
             </Link>
           </div>
         </div>
-        <div className="flex items-center gap-2 w-[30%]">
+        <div className="flex items-center gap-2">
           <p className="text-white hidden uppercase lg:flex">Tomorrow</p>
           <Tooltip title="Next Day" enterDelay={200} leaveDelay={200}>
             <Checkbox
@@ -131,19 +130,20 @@ const ServiceCheck = () => {
               onChange={onCheckChanged}
             />
           </Tooltip>
-          <Button
-            variant="contained"
-            fontSize="large"
-            className="bg-white text-black"
-          >
+
+          <button className="bg-white text-black px-2 py-1 rounded hover:bg-gray-300">
+            <Link href="/"> HOME</Link>
+          </button>
+          <button className="bg-white text-black px-2 p-0.5 rounded hover:bg-gray-300">
             <Link href="/servicecheck/add">
+              {" "}
               <AddIcon fontSize="medium" />
             </Link>
-          </Button>
+          </button>
           <input
             type="search"
             id="search"
-            className="rounded-md p-2"
+            className="rounded-md py-1 px-1 sm:w-[75%]"
             placeholder="Search..."
             value={state.searchItem}
             onChange={searchText}
