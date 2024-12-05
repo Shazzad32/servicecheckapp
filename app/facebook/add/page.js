@@ -1,4 +1,3 @@
-import React from "react";
 import FacebookForm from "@/components/FacebookForm";
 
 const defaultUser = {
@@ -6,6 +5,7 @@ const defaultUser = {
   customer_phone: "",
   district: "",
   address: "",
+  device_price: "",
   insert_date: "",
   install_date: "",
   probabel_install_date: "",
@@ -13,7 +13,7 @@ const defaultUser = {
   state: "",
 };
 
-const AddService = () => {
+const AddService = async () => {
   return (
     <div className="w-full flex flex-col justify-center items-center p-2 gap-8 sm:gap-4">
       <p className="text-orange-500 uppercase text-3xl font-bold">

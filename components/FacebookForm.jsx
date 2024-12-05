@@ -93,7 +93,7 @@ const FacebookForm = ({ defaultUser, isUpdate }) => {
         fullWidth
       />
       <TextField
-        type="number"
+        type="text"
         name="customer_phone"
         value={user.customer_phone || ""}
         onChange={handleChange}
@@ -120,6 +120,24 @@ const FacebookForm = ({ defaultUser, isUpdate }) => {
         label="Address"
         fullWidth
       />
+      <div className="w-full flex justify-between">
+        <TextField
+          className="w-[49%]"
+          type="number"
+          name="device_price"
+          value={user.device_price || ""}
+          onChange={handleChange}
+          label="Device Price"
+        />
+        <TextField
+          className="w-[49%]"
+          type="number"
+          name="service_charge"
+          value={user.service_charge || ""}
+          onChange={handleChange}
+          label="Service Charge"
+        />
+      </div>
 
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DatePicker
@@ -141,6 +159,7 @@ const FacebookForm = ({ defaultUser, isUpdate }) => {
           }}
         />
       </LocalizationProvider>
+
       <div className="w-full flex">
         <FormControl className="w-[50%]">
           <InputLabel id="demo-simple-select-label">State</InputLabel>

@@ -74,6 +74,8 @@ export const PUT = async (req, { params }) => {
       address,
       district,
       state,
+      device_price,
+      service_charge,
       comments,
       insert_date,
       probabel_install_date,
@@ -89,6 +91,8 @@ export const PUT = async (req, { params }) => {
     newUser.insert_date = insert_date;
     newUser.comments = comments;
     newUser.state = state;
+    newUser.service_charge = service_charge;
+    newUser.device_price = device_price;
     newUser.probabel_install_date = probabel_install_date;
     newUser.install_date = install_date;
     newUser.is_complete = is_complete;

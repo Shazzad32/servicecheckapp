@@ -24,12 +24,11 @@ const Drawer = () => {
         {isOpen ? <FiX /> : <FiMenu />}
       </button>
       <div
-        className={`fixed top-0 left-0 h-full w-64 bg-gray-600 text-white z-40 transform ${
+        className={`fixed top-0 left-0 h-full w-64 bg-gray-300 z-40 transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-300`}
       >
-        <div className="p-16 flex flex-col gap-2">
-          <h2 className="text-xl font-bold">Drawer Menu</h2>
+        <div className="p-14 flex flex-col gap-2">
           <Button variant="contained" onClick={handleCloseDrawer}>
             <Link href="/servicecheck">Service</Link>
           </Button>
@@ -44,8 +43,6 @@ const Drawer = () => {
           </Button>
         </div>
       </div>
-
-      {/* Overlay */}
       {isOpen && (
         <div
           onClick={toggleDrawer}

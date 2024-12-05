@@ -34,7 +34,7 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
   customer_name: { type: String },
-  customer_phone: { type: Number },
+  customer_phone: { type: String },
   district: { type: String },
   address: { type: String },
   insert_date: { type: Date, default: Date.now },
@@ -42,6 +42,8 @@ const userSchema = new Schema({
   install_date: { type: Date },
   comments: { type: String },
   state: { type: String },
+  device_price: { type: Number },
+  service_charge: { type: Number },
   is_complete: { type: Boolean, default: false },
 });
 
