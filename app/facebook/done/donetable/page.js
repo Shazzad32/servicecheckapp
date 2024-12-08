@@ -26,7 +26,8 @@ const DoneFacebookTable = ({ item }) => {
       <div className="hidden text-pretty lg:flex lg:gap-5 lg:justify-evenly lg:items-center w-[80%] items-center p-2 text-sm">
         <p
           style={{
-            flex: 1.2,
+            flex: 1,
+            fontSize: 14,
             whiteSpace: "nowrap",
             textOverflow: "ellipsis",
             overflow: "hidden",
@@ -36,7 +37,8 @@ const DoneFacebookTable = ({ item }) => {
         </p>
         <p
           style={{
-            flex: 1.2,
+            flex: 1,
+            fontSize: 14,
             whiteSpace: "nowrap",
             textOverflow: "ellipsis",
             overflow: "hidden",
@@ -46,7 +48,8 @@ const DoneFacebookTable = ({ item }) => {
         </p>
         <p
           style={{
-            flex: 1.2,
+            flex: 1,
+            fontSize: 14,
             whiteSpace: "nowrap",
             textOverflow: "ellipsis",
             overflow: "hidden",
@@ -56,7 +59,8 @@ const DoneFacebookTable = ({ item }) => {
         </p>
         <p
           style={{
-            flex: 1.2,
+            flex: 1,
+            fontSize: 14,
             whiteSpace: "nowrap",
             textOverflow: "ellipsis",
             overflow: "hidden",
@@ -64,12 +68,15 @@ const DoneFacebookTable = ({ item }) => {
         >
           {item?.address}
         </p>
-        <p style={{ flex: 1.2 }}>{formattedDate}</p>
-        <p style={{ flex: 1.2 }}>{probale_install_date_formate}</p>
-        <p style={{ flex: 1.2 }}>{item?.state}</p>
+        <p style={{ flex: 1, fontSize: 14 }}>{item?.device_price}</p>
+        <p style={{ flex: 1, fontSize: 14 }}>{item?.service_charge}</p>
+        <p style={{ flex: 1, fontSize: 14 }}>{formattedDate}</p>
+        <p style={{ flex: 1, fontSize: 14 }}>{probale_install_date_formate}</p>
+        <p style={{ flex: 1, fontSize: 14 }}>{item?.state}</p>
         <p
           style={{
-            flex: 1.6,
+            flex: 1,
+            fontSize: 14,
             whiteSpace: "nowrap",
             textOverflow: "ellipsis",
             overflow: "hidden",

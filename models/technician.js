@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const technicianSchema = new Schema({
   tech_name: { type: String },
-  tech_phone: { type: Number },
+  tech_phone: { type: String },
   district: { type: String },
   address: { type: String },
 });

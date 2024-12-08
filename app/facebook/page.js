@@ -135,7 +135,7 @@ const ServiceCheck = () => {
       <div className="h-[90vh] w-full bg-gray-500 flex items-center justify-center">
         <div className="h-[98%] w-[99%] shadow-2xl bg-white rounded-md overflow-auto lg:overflow-x-auto">
           <div className="w-full flex bg-cyan-900 text-white uppercase py-2">
-            <div className="lg:flex lg:flex-[1] lg:gap-2 px-2 hidden items-center font-medium">
+            <div className="lg:flex lg:flex-[1] lg:gap-2 px-2 hidden">
               <p style={{ flex: 1, fontSize: 12 }}>Customer Name</p>
               <p style={{ flex: 1, fontSize: 12 }}>Customer No</p>
               <p style={{ flex: 1, fontSize: 12 }}>District</p>

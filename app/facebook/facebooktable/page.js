@@ -27,12 +27,12 @@ const FacebookTable = ({ item }) => {
       BLOCKED: "bg-red-600",
       PENDING: "bg-pink-600",
     };
-    return stateColors[state] || "bg-gray-400"; // Default color if state doesn't match
+    return stateColors[state] || "bg-gray-400";
   };
 
   return (
     <div className="h-auto w-full flex lg:flex-row lg:h-14 items-center shadow-none  border-b-4 lg:border-none lg:shadow-md">
-      <div className="hidden text-pretty lg:flex lg:items-center w-[80%] items-center p-1 text-md">
+      <div className="hidden text-pretty lg:flex lg:gap-5 lg:justify-evenly lg:items-center w-[80%] items-center p-2 text-sm">
         <p
           style={{
             flex: 1,
@@ -111,7 +111,12 @@ const FacebookTable = ({ item }) => {
         <p>
           <strong>Address:</strong> {item?.address}
         </p>
-
+        <p>
+          <strong>Device Price:</strong> {item?.device_price}
+        </p>
+        <p>
+          <strong>Service Charge:</strong> {item?.service_charge}
+        </p>
         <p>
           <strong>Insert Date:</strong> {formattedDate}
         </p>

@@ -95,15 +95,16 @@ const Technician = () => {
 
       <div className="h-[90vh] w-full bg-gray-500 flex items-center justify-center">
         <div className="h-[98%] w-[99%] shadow-2xl bg-white rounded-md overflow-auto lg:overflow-x-auto">
-          <div className="w-full flex bg-cyan-900 text-white text-sm uppercase py-2">
-            <div className="lg:flex lg:flex-[1] lg:gap-2 px-2 hidden">
+          <div className="w-full flex bg-cyan-900 text-white text-sm uppercase ">
+            <div className="lg:flex lg:flex-[1] lg:gap-2 p-3 hidden ">
               <p style={{ flex: 2.5 }}>Technician Name</p>
               <p style={{ flex: 2.5 }}>Technician Number</p>
-
               <p style={{ flex: 2.5 }}>District</p>
               <p style={{ flex: 2.5 }}>Address</p>
             </div>
-            <p className="w-1/5 text-center hidden lg:block ">Action</p>
+            <p className="w-1/5 text-center hidden lg:block items-center">
+              Action
+            </p>
           </div>
           <div className="h-[92%] w-full overflow-auto">
             {state.datas.map((item, i) => (
