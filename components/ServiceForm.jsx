@@ -68,7 +68,7 @@ const ServiceForm = ({ defaultServiceCheck, isUpdate }) => {
     }));
   };
   return (
-    <div className="w-full  flex flex-col items-center justify-center gap-2 p-1 lg:p-6 lg:w-[50%] lg:gap-4">
+    <div className="w-full flex flex-col items-center justify-center gap-2 p-1 lg:p-6 lg:w-[50%] lg:gap-4">
       <TextField
         type="text"
         name="device_id"

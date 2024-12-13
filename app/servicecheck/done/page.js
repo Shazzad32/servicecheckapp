@@ -25,11 +25,7 @@ const ServiceDone = () => {
     <div className="h-full w-full bg-cyan-800  flex flex-col items-center justify-center">
       <div className="h-[10vh] w-full bg-cyan-800  flex items-center justify-center text-white text-lg uppercase">
         <div className="flex-[3.3] flex justify-start ml-4 items-center">
-          <Button
-            variant="contained"
-            fontSize="large"
-            className="bg-white text-black flex justify-end"
-          >
+          <Button variant="outlined" fontSize="large" color="white">
             <Link href="/servicecheck">
               <KeyboardDoubleArrowLeftIcon />
             </Link>

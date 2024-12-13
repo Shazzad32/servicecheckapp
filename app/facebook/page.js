@@ -12,6 +12,7 @@ const ServiceCheck = () => {
     dataResults: "",
     searchItem: "",
     nextday: false,
+    is_Blocked: false,
   });
 
   useEffect(() => {
@@ -29,11 +30,15 @@ const ServiceCheck = () => {
     });
   };
 
-  const todayTask = state.datas.filter(
-    (item) => item.insert_date === new Date()
-  );
+  const blockedTask = state.datas.filter((item) => item.state === "BLOCKED");
+
+  // const todayTask = state.datas.filter(
+  //   (item) => item.insert_date === new Date()
+  // );
   const completeTask = state.datas.filter((item) => item.is_complete === true);
-  const pendingTask = state.datas.filter((item) => item.is_complete === false);
+  const pendingTask = state.datas.filter(
+    (item) => item.is_complete === false && item.state != "BLOCKED"
+  );
 
   const handleSearch = (e) => {
     const searchTxt = e.target.value.toLowerCase();
@@ -78,6 +83,13 @@ const ServiceCheck = () => {
     setState(old);
   };
 
+  const toggleBlocked = () => {
+    setState((prev) => ({
+      ...prev,
+      is_Blocked: !prev.is_Blocked, // Toggle showBlocked state
+    }));
+  };
+
   return (
     <div className="h-full w-full bg-green-600 flex flex-col items-center justify-center">
       <div className="h-[10vh] w-full bg-cyan-800 flex flex-wrap items-center justify-between px-4 py-2">
@@ -97,6 +109,15 @@ const ServiceCheck = () => {
               </span>
             </Link>
           </div>
+          <button
+            className="w-[100px] h-[30px] text-sm bg-white text-black rounded-md flex items-center justify-center"
+            onClick={toggleBlocked} // Button to toggle BLOCKED items
+          >
+            Blocked :
+            <span className="text-red-700 font-bold ml-2">
+              {blockedTask.length}
+            </span>
+          </button>
         </div>
         <div className="flex items-center gap-2">
           <p className="text-white hidden uppercase lg:flex">Tomorrow</p>
@@ -150,9 +171,12 @@ const ServiceCheck = () => {
             <p className="w-1/5 text-center hidden lg:block ">Action</p>
           </div>
           <div className="h-[92%] w-full overflow-auto">
-            {pendingTask.map((item, i) => (
+            {(state.is_Blocked ? blockedTask : pendingTask).map((item, i) => (
               <FacebookTable key={i} item={item} />
             ))}
+            {/* {pendingTask.map((item, i) => (
+              <FacebookTable key={i} item={item} />
+            ))} */}
           </div>
         </div>
       </div>
