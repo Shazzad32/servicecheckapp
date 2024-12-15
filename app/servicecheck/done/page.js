@@ -2,37 +2,100 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import ServiceDoneTable from "./donetable/page";
-import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
-import { Button } from "@mui/material";
 import Link from "next/link";
 
 const ServiceDone = () => {
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
+  // useEffect(() => {
+  //   fetchActiveData();
+  // }, []);
+
+  // const fetchActiveData = () => {
+  //   axios.get("/api/service-check").then((res) => {
+  //     setData(res.data);
+  //   });
+  // };
+
+  const [state, setState] = useState({
+    datas: [],
+    dataResults: "",
+    searchItem: "",
+    nextday: false,
+  });
 
   useEffect(() => {
-    fetchActiveData();
+    getData();
   }, []);
 
-  const fetchActiveData = () => {
+  const getData = () => {
     axios.get("/api/service-check").then((res) => {
-      setData(res.data);
+      let data = res.data;
+      console.log(data, "dkdk");
+      let old = { ...state };
+      old.datas = data;
+      old.dataResults = data;
+      console.log("data", old.datas);
+      setState(old);
     });
   };
 
-  const trueCount = data.filter((item) => item.is_complete === true);
+  const searchText = (e) => {
+    let searchTxt = e.target.value.toLowerCase();
+    console.log(searchTxt);
+    let old = { ...state };
+    if (searchTxt === "") {
+      old.datas = [...old.dataResults];
+    } else {
+      old.datas = [...old.dataResults].filter((x) => {
+        return (
+          (x.device_id &&
+            x.device_id.toLowerCase().includes(searchTxt.toLowerCase())) ||
+          (x.district &&
+            x.district.toLowerCase().includes(searchTxt.toLowerCase())) ||
+          (x.address &&
+            x.address.toLowerCase().includes(searchTxt.toLowerCase())) ||
+          (x.reg_no &&
+            x.reg_no.toLowerCase().includes(searchTxt.toLowerCase())) ||
+          (x.problems &&
+            x.problems.toLowerCase().includes(searchTxt.toLowerCase())) ||
+          (x.insert_date &&
+            String(x.insert_date)
+              .toLowerCase()
+              .includes(searchTxt.toLowerCase())) ||
+          (x.customer_number &&
+            x.customer_number.toLowerCase().includes(searchTxt.toLowerCase()))
+        );
+      });
+    }
+    old.searchItem = searchTxt;
+    console.log(old.searchItem);
+    setState(old);
+  };
+
+  const trueCount = state.datas.filter((item) => item.is_complete === true);
 
   return (
     <div className="h-full w-full bg-cyan-800  flex flex-col items-center justify-center">
       <div className="h-[10vh] w-full bg-cyan-800  flex items-center justify-center text-white text-lg uppercase">
         <div className="flex-[3.3] flex justify-start ml-4 items-center">
-          <Button variant="outlined" fontSize="large" color="white">
-            <Link href="/servicecheck">
-              <KeyboardDoubleArrowLeftIcon />
-            </Link>
-          </Button>
+          <button className="bg-white h-[35px] w-[65px] text-black rounded">
+            <Link href="/servicecheck">Back</Link>
+          </button>
         </div>
-        <div className="flex-[3.3] ">Completed Services</div>
-        <div className="flex-[3.3] "></div>
+        <div className="flex-[3.3] lg:text-lg text-[12px]">
+          Completed Services
+        </div>
+        <div className="flex-[3.3] ">
+          {" "}
+          <input
+            type="search"
+            id="search"
+            className="rounded-md p-2 lg:w-[50%] w-[80%] text-black"
+            placeholder="Search..."
+            value={state.searchItem}
+            onChange={searchText}
+          />
+        </div>
       </div>
       <div className="h-[90vh] w-full bg-gray-500 flex items-center justify-center">
         <div className="h-[98%] w-[99%] shadow-2xl bg-white rounded-md overflow-auto lg:overflow-x-auto">

@@ -2,7 +2,7 @@ import { FiEdit } from "react-icons/fi";
 import Link from "next/link";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
-const ServiceTable = ({ item, key }) => {
+const ServiceTable = ({ item }) => {
   let formattedDate = "N/A";
   let probale_install_date_formate = "N/A";
 
