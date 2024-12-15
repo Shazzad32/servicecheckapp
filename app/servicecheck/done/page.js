@@ -85,12 +85,12 @@ const ServiceDone = () => {
         <div className="flex-[3.3] lg:text-lg text-[12px]">
           Completed Services
         </div>
-        <div className="flex-[3.3] ">
+        <div className="flex-[3.3] flex justify-end ">
           {" "}
           <input
             type="search"
             id="search"
-            className="rounded-md p-2 lg:w-[50%] w-[80%] text-black"
+            className="rounded-md p-2 lg:w-[50%] w-full  lg:mr-10 mr-4  text-black"
             placeholder="Search..."
             value={state.searchItem}
             onChange={searchText}
@@ -100,7 +100,7 @@ const ServiceDone = () => {
       <div className="h-[90vh] w-full bg-gray-500 flex items-center justify-center">
         <div className="h-[98%] w-[99%] shadow-2xl bg-white rounded-md overflow-auto lg:overflow-x-auto">
           <div className="w-full flex bg-cyan-800  text-white text-sm uppercase py-2">
-            <div className="lg:flex lg:flex-[1] lg:gap-2 px-2 hidden">
+            <div className="lg:flex lg:flex-[1] lg:gap-2 p-2 hidden">
               <p style={{ flex: 1.2 }}>Device ID</p>
               <p style={{ flex: 1.3 }}>Reg No</p>
               <p style={{ flex: 1 }}>Customer No</p>

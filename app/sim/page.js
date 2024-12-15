@@ -62,7 +62,7 @@ const Sim = () => {
       <div className="h-[10vh] w-full bg-cyan-800 flex flex-wrap items-center justify-between px-4 py-2 lg:p-4 sm:p-2">
         <div className="text-white text-center flex items-center gap-2 lg:text-lg md:text-xl sm:text-sm uppercase lg:p-0 sm:p-2">
           Robi Sim Platform
-          <div className="px-4 py-1 text-sm bg-white text-black rounded-md lg:flex items-center justify-center hidden">
+          <div className="px-4 py-1 text-sm bg-white text-black rounded-md flex items-center justify-center">
             Total Number:
             <span className="text-red-700 font-bold ml-2">{total_number}</span>
           </div>

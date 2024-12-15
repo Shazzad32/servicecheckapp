@@ -74,12 +74,14 @@ const FacebookDone = () => {
             <Link href="/facebook">Back</Link>
           </button>
         </div>
-        <div className="flex-[3.3] ">Completed Facebook Task</div>
-        <div className="flex-[3.3] items-center justify-center ">
+        <div className="flex-[3.3] lg:text-[20px] text-[12px]">
+          Completed Facebook Task
+        </div>
+        <div className="flex-[3.3] flex  items-center justify-end lg:mr-10 mr-4 ">
           <input
             type="search"
             id="search"
-            className="rounded-md p-2 lg:w-[50%] w-[80%] text-black"
+            className="rounded-md lg:p-2 p-1 px-2 lg:w-[50%] w-full text-black"
             placeholder="Search..."
             value={state.searchItem}
             onChange={searchText}
@@ -89,7 +91,7 @@ const FacebookDone = () => {
       <div className="h-[90vh] w-full bg-gray-500 flex items-center justify-center">
         <div className="h-[98%] w-[99%] shadow-2xl bg-white rounded-md overflow-auto lg:overflow-x-auto">
           <div className="w-full flex bg-cyan-900 text-white uppercase py-2">
-            <div className="lg:flex lg:flex-[1] lg:gap-2 px-2 hidden">
+            <div className="lg:flex lg:flex-[1] lg:gap-2 p-2 hidden">
               <p style={{ flex: 1, fontSize: 12 }}>Customer Name</p>
               <p style={{ flex: 1, fontSize: 12 }}>Customer No</p>
               <p style={{ flex: 1, fontSize: 12 }}>District</p>
@@ -101,7 +103,7 @@ const FacebookDone = () => {
               {/* <p style={{ flex: 1, fontSize: 12 }}>State</p> */}
               <p style={{ flex: 1, fontSize: 12 }}>Comments</p>
             </div>
-            <p className="w-1/5 text-center hidden lg:block text-[10px]">
+            <p className="w-1/5 text-center hidden lg:block text-[12px] items-center">
               Action
             </p>
           </div>
