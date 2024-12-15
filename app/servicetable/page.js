@@ -27,7 +27,7 @@ const ServiceTable = ({ item }) => {
     <div
       className={`h-auto w-full flex lg:flex-row lg:h-14 items-center shadow-none  border-b-4 lg:border-none lg:shadow-md`}
     >
-      <div className="hidden text-pretty lg:flex lg:gap-5 lg:justify-evenly lg:items-center w-[80%] items-center p-2 text-sm">
+      <div className="hidden text-pretty lg:gap:2 lg:flex lg:gap-2 lg:justify-evenly lg:items-center w-[80%] items-center lg:p-2 text-sm">
         <p style={{ flex: 1.2 }}>{item?.device_id}</p>
         <p
           style={{

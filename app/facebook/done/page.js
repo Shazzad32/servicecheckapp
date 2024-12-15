@@ -89,9 +89,9 @@ const FacebookDone = () => {
         </div>
       </div>
       <div className="h-[90vh] w-full bg-gray-500 flex items-center justify-center">
-        <div className="h-[98%] w-[99%] shadow-2xl bg-white rounded-md overflow-auto lg:overflow-x-auto">
-          <div className="w-full flex bg-cyan-900 text-white uppercase py-2">
-            <div className="lg:flex lg:flex-[1] lg:gap-2 p-2 hidden">
+        <div className="h-[98%] w-[99%] shadow-2xl bg-white rounded-md">
+          <div className="w-full flex bg-cyan-900 text-white uppercase">
+            <div className="w-[80%] lg:flex lg:flex-[1] lg:gap-2 p-3 hidden">
               <p style={{ flex: 1, fontSize: 12 }}>Customer Name</p>
               <p style={{ flex: 1, fontSize: 12 }}>Customer No</p>
               <p style={{ flex: 1, fontSize: 12 }}>District</p>
@@ -100,10 +100,9 @@ const FacebookDone = () => {
               <p style={{ flex: 1, fontSize: 12 }}>Service Charge</p>
               <p style={{ flex: 1, fontSize: 12 }}>Insert_Date</p>
               <p style={{ flex: 1, fontSize: 12 }}>Install_Date</p>
-              {/* <p style={{ flex: 1, fontSize: 12 }}>State</p> */}
               <p style={{ flex: 1, fontSize: 12 }}>Comments</p>
             </div>
-            <p className="w-1/5 text-center hidden lg:block text-[12px] items-center">
+            <p className="w-[20%] hidden lg:flex text-[12px] lg:items-center lg:justify-center">
               Action
             </p>
           </div>

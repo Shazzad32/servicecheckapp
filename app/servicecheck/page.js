@@ -158,9 +158,10 @@ const ServiceCheck = () => {
       </div>
 
       <div className="h-[90vh] w-full bg-gray-500 flex items-center justify-center">
-        <div className="h-[98%] w-[99%] shadow-2xl bg-white rounded-md overflow-auto lg:overflow-x-auto">
-          <div className="w-full flex bg-cyan-900 text-white text-sm uppercase py-2">
-            <div className="lg:flex lg:flex-[1] lg:gap-2 p-3 hidden">
+        <div className="h-[98%] w-[99%] shadow-2xl bg-white rounded-md">
+          <div className="w-full flex bg-cyan-900 text-white text-sm uppercase">
+            {/* <div className="lg:flex lg:flex-[1] p-2 hidden"> */}
+            <div className="lg:flex lg:justify-evenly lg:items-center lg:flex-[1] lg:whitespace-nowrap lg:overflow-hidden lg:text-clip p-3 hidden">
               <p style={{ flex: 1.2 }}>Device ID</p>
               <p style={{ flex: 1.3 }}>Reg No</p>
               <p style={{ flex: 1 }}>Customer No</p>
@@ -171,7 +172,9 @@ const ServiceCheck = () => {
               <p style={{ flex: 1 }}>Pro_Ins_Date</p>
               <p style={{ flex: 1.5 }}>Problems</p>
             </div>
-            <p className="w-1/5 text-center hidden lg:block ">Action</p>
+            <p className="w-1/5 text-center hidden lg:flex lg:items-center justify-center ">
+              Action
+            </p>
           </div>
           <div className="h-[92%] w-full overflow-auto">
             {notComplete.map((item, i) => (

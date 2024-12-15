@@ -89,9 +89,9 @@ const Sim = () => {
       </div>
 
       <div className="h-[90vh] w-full bg-gray-500 flex items-center justify-center">
-        <div className="h-[98%] w-[99%] shadow-2xl bg-white rounded-md overflow-auto lg:overflow-x-auto">
-          <div className="w-full flex bg-cyan-900 text-white text-sm uppercase py-2">
-            <div className="lg:flex lg:flex-1 px-2 hidden">
+        <div className="h-[98%] w-[99%] shadow-2xl bg-white rounded-md">
+          <div className="w-full flex bg-cyan-900 text-white text-sm uppercase">
+            <div className="lg:flex lg:flex-1 p-3 hidden">
               <p style={{ flex: 2.25 }}>Number</p>
               <p style={{ flex: 2.25 }}>KCP Number</p>
               <p style={{ flex: 2.25 }}>Active Date</p>
