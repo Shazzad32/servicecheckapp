@@ -26,6 +26,8 @@ const FacebookForm = ({ defaultUser, isUpdate }) => {
     ...defaultUser,
   });
 
+  const [dropdownData, setDropdownData] = useState([]);
+
   const saveUser = async () => {
     const res = await fetch("/api/user", {
       method: "POST",

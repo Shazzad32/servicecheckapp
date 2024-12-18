@@ -36,6 +36,9 @@ const Drawer = () => {
             <Link href="/facebook">Facebook</Link>
           </Button>
           <Button variant="contained" onClick={handleCloseDrawer}>
+            <Link href="/existingclient">Existing</Link>
+          </Button>
+          <Button variant="contained" onClick={handleCloseDrawer}>
             <Link href="/technician">Technician</Link>
           </Button>
           <Button variant="contained" onClick={handleCloseDrawer}>

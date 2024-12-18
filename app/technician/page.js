@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import ServiceTable from "../servicetable/page";
+import ServiceTable from "../servicecheck/servicetable/page";
 import Link from "next/link";
 import { Button, Checkbox, Tooltip } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";

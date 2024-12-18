@@ -5,6 +5,9 @@ import { Button, Checkbox, Tooltip } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import axios from "axios";
 import FacebookTable from "../facebook/facebooktable/page";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { DatePicker } from "@mui/x-date-pickers";
 
 const ServiceCheck = () => {
   const [state, setState] = useState({
@@ -13,6 +16,7 @@ const ServiceCheck = () => {
     searchItem: "",
     nextday: false,
     is_Blocked: false,
+    selectedDate: null,
   });
 
   useEffect(() => {
@@ -90,6 +94,25 @@ const ServiceCheck = () => {
     }));
   };
 
+  const onDateChange = (date) => {
+    const selectedDate = new Date(date).setHours(0, 0, 0, 0);
+    const filteredData = state.dataResults.filter((item) => {
+      const itemDate = new Date(item.probabel_install_date).setHours(
+        0,
+        0,
+        0,
+        0
+      );
+      return itemDate === selectedDate;
+    });
+
+    setState((prevState) => ({
+      ...prevState,
+      selectedDate: date,
+      datas: filteredData,
+    }));
+  };
+
   return (
     <div className="h-full w-full bg-green-600 flex flex-col items-center justify-center">
       <div className="h-[10vh] w-full bg-cyan-800 flex flex-wrap items-center justify-between px-4 py-2">
@@ -122,8 +145,30 @@ const ServiceCheck = () => {
             </span>
           </button>
         </div>
-        <div className="flex items-center gap-2">
-          <p className="text-white hidden uppercase lg:flex">Tomorrow</p>
+        <div className="flex items-center gap-2 ">
+          <LocalizationProvider
+            dateAdapter={AdapterDateFns}
+            className="text-white"
+          >
+            <div className="flex items-center gap-2">
+              <DatePicker
+                label="Select a Date"
+                value={state.selectedDate}
+                onChange={(date) => onDateChange(date)}
+                renderInput={(params) => (
+                  <button
+                    {...params.inputProps}
+                    className="bg-blue-500 text-white px-2 py-2 rounded border-white"
+                  >
+                    {state.selectedDate
+                      ? new Date(state.selectedDate).toLocaleDateString()
+                      : "Select Date"}
+                  </button>
+                )}
+              />
+            </div>
+          </LocalizationProvider>
+          {/* <p className="text-white hidden uppercase lg:flex">Tomorrow</p>
           <Tooltip title="Next Day" enterDelay={200} leaveDelay={200}>
             <Checkbox
               style={{
@@ -135,7 +180,7 @@ const ServiceCheck = () => {
               checked={state.nextday}
               onChange={onCheckChanged}
             />
-          </Tooltip>
+          </Tooltip> */}
           <button className="bg-white text-black px-2 py-1 rounded hover:bg-gray-300">
             <Link href="/">HOME</Link>
           </button>

@@ -5,6 +5,7 @@ import { Button } from "@mui/material";
 import Link from "next/link";
 import DoneFacebookTable from "../done/donetable/page";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
+import DoneTable from "../done/donetable/page";
 
 const FacebookDone = () => {
   const [data, setData] = useState([]);
@@ -21,7 +22,7 @@ const FacebookDone = () => {
   }, []);
 
   const getData = () => {
-    axios.get("/api/user").then((res) => {
+    axios.get("/api/existing-client").then((res) => {
       let data = res.data;
       let old = { ...state };
       old.datas = data;
@@ -81,24 +82,23 @@ const FacebookDone = () => {
       <div className="h-[90vh] w-full bg-gray-500 flex items-center justify-center">
         <div className="h-[98%] w-[99%] shadow-2xl bg-white rounded-md">
           <div className="w-full flex bg-cyan-900 text-white uppercase">
-            <div className="w-[80%] lg:flex lg:flex-[1] lg:gap-2 p-3 hidden">
-              <p style={{ flex: 1, fontSize: 12 }}>Customer Name</p>
+            <div className="w-[80%] lg:flex lg:justify-evenly lg:items-center lg:flex-[1] lg:whitespace-nowrap lg:overflow-hidden lg:text-clip p-3 hidden">
+              <p style={{ flex: 1, fontSize: 12 }}>Device Id</p>
+              <p style={{ flex: 1, fontSize: 12 }}>Device No</p>
               <p style={{ flex: 1, fontSize: 12 }}>Customer No</p>
-              <p style={{ flex: 1, fontSize: 12 }}>District</p>
-              <p style={{ flex: 1, fontSize: 12 }}>Address</p>
-              <p style={{ flex: 1, fontSize: 12 }}>Device_Price</p>
-              <p style={{ flex: 1, fontSize: 12 }}>Service Charge</p>
-              <p style={{ flex: 1, fontSize: 12 }}>Insert_Date</p>
-              <p style={{ flex: 1, fontSize: 12 }}>Install_Date</p>
+              <p style={{ flex: 1, fontSize: 12 }}>Pro_Call_Date</p>
+              <p style={{ flex: 1, fontSize: 12 }}>Platform</p>
+              <p style={{ flex: 1, fontSize: 12 }}>State</p>
+              <p style={{ flex: 1, fontSize: 12 }}>After State</p>
               <p style={{ flex: 1, fontSize: 12 }}>Comments</p>
             </div>
-            <p className="w-[20%] hidden lg:flex text-[12px] lg:items-center lg:justify-center">
-              Action
-            </p>
+            <div className="w-[20%] lg:flex lg:items-center uppercase text-[12px] lg:justify-center hidden  ">
+              <p>Action</p>
+            </div>
           </div>
           <div className="h-[92%] w-full overflow-auto">
             {completeTask.map((item, i) => (
-              <DoneFacebookTable item={item} key={i} />
+              <DoneTable item={item} key={i} />
             ))}
           </div>
         </div>

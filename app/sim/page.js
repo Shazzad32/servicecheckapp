@@ -1,5 +1,5 @@
 "use client";
-import SimTable from "../simtable/page";
+import SimTable from "../sim/simtable/page";
 import Link from "next/link";
 import { Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
