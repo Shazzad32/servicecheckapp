@@ -2,9 +2,12 @@
 import { useState, useEffect } from "react";
 import ServiceTable from "./servicetable/page";
 import Link from "next/link";
-import { Button, Checkbox, Tooltip } from "@mui/material";
+import { Button, Checkbox, TextField, Tooltip } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import axios from "axios";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { DatePicker } from "@mui/x-date-pickers";
 
 const ServiceCheck = () => {
   const [state, setState] = useState({
@@ -12,8 +15,9 @@ const ServiceCheck = () => {
     dataResults: "",
     searchItem: "",
     nextday: false,
+    selectedDate: null,
+    open: false,
   });
-
   useEffect(() => {
     getData();
   }, []);
@@ -72,32 +76,51 @@ const ServiceCheck = () => {
     setState(old);
   };
 
-  const nextDayFilter = (date) => {
-    let ddd = new Date(date);
-    let today = new Date();
-    today.setHours(23);
-    today.setMinutes(59);
-    today.setSeconds(59);
+  // const nextDayFilter = (date) => {
+  //   let ddd = new Date(date);
+  //   let today = new Date();
+  //   today.setHours(23);
+  //   today.setMinutes(59);
+  //   today.setSeconds(59);
 
-    let nextDay = new Date(today.getTime());
-    nextDay.setDate(nextDay.getDate() + 1);
-    return (
-      ddd.getTime() >= today.getTime() && ddd.getTime() <= nextDay.getTime()
-    );
-  };
+  //   let nextDay = new Date(today.getTime());
+  //   nextDay.setDate(nextDay.getDate() + 1);
+  //   return (
+  //     ddd.getTime() >= today.getTime() && ddd.getTime() <= nextDay.getTime()
+  //   );
+  // };
 
-  const onCheckChanged = (e) => {
-    let old = { ...state };
-    old.nextday = !old.nextday;
+  // const onCheckChanged = (e) => {
+  //   let old = { ...state };
+  //   old.nextday = !old.nextday;
 
-    if (old.nextday) {
-      old.datas = [...old.dataResults].filter((x) =>
-        nextDayFilter(x.probable_install_date)
+  //   if (old.nextday) {
+  //     old.datas = [...old.dataResults].filter((x) =>
+  //       nextDayFilter(x.probable_install_date)
+  //     );
+  //   } else {
+  //     old.datas = [...old.dataResults];
+  //   }
+  //   setState(old);
+  // };
+
+  const onDateChange = (date) => {
+    const selectedDate = new Date(date).setHours(0, 0, 0, 0);
+    const filteredData = state.dataResults.filter((item) => {
+      const itemDate = new Date(item.probable_install_date).setHours(
+        0,
+        0,
+        0,
+        0
       );
-    } else {
-      old.datas = [...old.dataResults];
-    }
-    setState(old);
+      return itemDate === selectedDate;
+    });
+
+    setState((prevState) => ({
+      ...prevState,
+      selectedDate: date,
+      datas: filteredData,
+    }));
   };
 
   return (
@@ -122,20 +145,24 @@ const ServiceCheck = () => {
             </Link>
           </div>
         </div>
-        <div className="flex items-center gap-2">
-          <p className="text-white hidden uppercase lg:flex">Tomorrow</p>
-          <Tooltip title="Next Day" enterDelay={200} leaveDelay={200}>
-            <Checkbox
-              style={{
-                height: "35px",
-                width: "40px",
-                color: "white",
-              }}
-              label="Next"
-              checked={state.nextday}
-              onChange={onCheckChanged}
-            />
-          </Tooltip>
+        <div className="flex items-center gap-2 text-white">
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <div className="flex items-center gap-2 text-white">
+              <DatePicker
+                label="Select Date"
+                className="text-white"
+                value={state.selectedDate}
+                onChange={(date) => onDateChange(date)}
+                renderInput={(params) => (
+                  <button {...params.inputProps} className="text-white">
+                    {state.selectedDate
+                      ? new Date(state.selectedDate).toLocaleDateString()
+                      : "Select Date"}
+                  </button>
+                )}
+              />
+            </div>
+          </LocalizationProvider>
 
           <button className="bg-white text-black px-2 py-1 rounded hover:bg-gray-300">
             <Link href="/"> HOME</Link>

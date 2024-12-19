@@ -59,38 +59,38 @@ const ServiceCheck = () => {
     }));
   };
 
-  const nextDayFilter = (date) => {
-    let ddd = new Date(date);
-    let today = new Date();
-    today.setHours(23);
-    today.setMinutes(59);
-    today.setSeconds(59);
+  // const nextDayFilter = (date) => {
+  //   let ddd = new Date(date);
+  //   let today = new Date();
+  //   today.setHours(23);
+  //   today.setMinutes(59);
+  //   today.setSeconds(59);
 
-    let nextDay = new Date(today.getTime());
-    nextDay.setDate(nextDay.getDate() + 1);
-    return (
-      ddd.getTime() >= today.getTime() && ddd.getTime() <= nextDay.getTime()
-    );
-  };
+  //   let nextDay = new Date(today.getTime());
+  //   nextDay.setDate(nextDay.getDate() + 1);
+  //   return (
+  //     ddd.getTime() >= today.getTime() && ddd.getTime() <= nextDay.getTime()
+  //   );
+  // };
 
-  const onCheckChanged = (e) => {
-    let old = { ...state };
-    old.nextday = !old.nextday;
+  // const onCheckChanged = (e) => {
+  //   let old = { ...state };
+  //   old.nextday = !old.nextday;
 
-    if (old.nextday) {
-      old.datas = [...old.dataResults].filter((x) =>
-        nextDayFilter(x.probabel_install_date)
-      );
-    } else {
-      old.datas = [...old.dataResults];
-    }
-    setState(old);
-  };
+  //   if (old.nextday) {
+  //     old.datas = [...old.dataResults].filter((x) =>
+  //       nextDayFilter(x.probabel_install_date)
+  //     );
+  //   } else {
+  //     old.datas = [...old.dataResults];
+  //   }
+  //   setState(old);
+  // };
 
   const toggleBlocked = () => {
     setState((prev) => ({
       ...prev,
-      is_Blocked: !prev.is_Blocked, // Toggle showBlocked state
+      is_Blocked: !prev.is_Blocked,
     }));
   };
 
