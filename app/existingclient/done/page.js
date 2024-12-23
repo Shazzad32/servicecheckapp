@@ -8,7 +8,6 @@ import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrow
 import DoneTable from "../done/donetable/page";
 
 const FacebookDone = () => {
-  const [data, setData] = useState([]);
   const [state, setState] = useState({
     datas: [],
     dataResults: "",
@@ -62,7 +61,7 @@ const FacebookDone = () => {
       <div className="h-[10vh] w-full bg-cyan-800  flex items-center justify-center text-white text-lg uppercase">
         <div className="flex-[3.3] flex justify-start ml-4 items-center">
           <button className="bg-white h-[35px] w-[65px] text-black rounded">
-            <Link href="/facebook">Back</Link>
+            <Link href="/existingclient">Back</Link>
           </button>
         </div>
         <div className="flex-[3.3] lg:text-[20px] text-[12px]">

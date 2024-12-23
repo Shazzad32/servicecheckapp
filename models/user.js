@@ -6,15 +6,15 @@ const userSchema = new Schema({
   customer_phone: { type: String },
   district: { type: String },
   address: { type: String },
-  insert_date: { type: Date, default: Date.now },
-  probabel_install_date: { type: Date },
   install_date: { type: Date },
-  facebook: { type: String },
   reference: { type: String },
   comments: { type: String },
   state: { type: String },
   device_price: { type: Number },
   service_charge: { type: Number },
+  quantity: { type: Number, default: 1 },
+  probabel_install_date: { type: Date },
+  insert_date: { type: Date, default: Date.now },
   is_complete: { type: Boolean, default: false },
 });
 

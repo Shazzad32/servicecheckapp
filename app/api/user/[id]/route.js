@@ -80,6 +80,8 @@ export const PUT = async (req, { params }) => {
       insert_date,
       probabel_install_date,
       install_date,
+      reference,
+      quantity,
       is_complete,
     } = await req.json();
 
@@ -95,6 +97,8 @@ export const PUT = async (req, { params }) => {
     newUser.device_price = device_price;
     newUser.probabel_install_date = probabel_install_date;
     newUser.install_date = install_date;
+    newUser.reference = reference;
+    newUser.quantity = quantity;
     newUser.is_complete = is_complete;
 
     await newUser.save();

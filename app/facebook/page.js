@@ -39,6 +39,11 @@ const ServiceCheck = () => {
   // const todayTask = state.datas.filter(
   //   (item) => item.insert_date === new Date()
   // );
+
+  const completeWort = state.datas
+    .filter((item) => item.is_complete && item.quantity)
+    .reduce((total, item) => total + item.quantity, 0);
+
   const completeTask = state.datas.filter((item) => item.is_complete === true);
   const pendingTask = state.datas.filter(
     (item) => item.is_complete === false && item.state != "BLOCKED"
@@ -130,7 +135,7 @@ const ServiceCheck = () => {
               <p className="lg:flex hidden"> Done :</p>
               <span className="text-red-700 font-bold ml-2 flex">
                 <p className="lg:hidden">D=</p>
-                {completeTask.length}
+                {completeWort}
               </span>
             </Link>
           </div>
@@ -150,7 +155,7 @@ const ServiceCheck = () => {
             dateAdapter={AdapterDateFns}
             className="text-white"
           >
-            <div className="flex items-center gap-2">
+            <div>
               <DatePicker
                 label="Select a Date"
                 value={state.selectedDate}
@@ -162,7 +167,7 @@ const ServiceCheck = () => {
                   >
                     {state.selectedDate
                       ? new Date(state.selectedDate).toLocaleDateString()
-                      : "Select Date"}
+                      : ""}
                   </button>
                 )}
               />
@@ -213,6 +218,7 @@ const ServiceCheck = () => {
               <p style={{ flex: 1, fontSize: 12 }}>Service Charge</p>
               <p style={{ flex: 1, fontSize: 12 }}>Insert_Date</p>
               <p style={{ flex: 1, fontSize: 12 }}>Pro_Ins_Date</p>
+              <p style={{ flex: 1, fontSize: 12 }}>Reference</p>
               <p style={{ flex: 1, fontSize: 12 }}>State</p>
               <p style={{ flex: 1, fontSize: 12 }}>Comments</p>
             </div>
@@ -235,142 +241,3 @@ const ServiceCheck = () => {
 };
 
 export default ServiceCheck;
-// "use client";
-// import { useState, useEffect } from "react";
-// import Link from "next/link";
-// import { Button, Checkbox, Tooltip } from "@mui/material";
-// import AddIcon from "@mui/icons-material/Add";
-// import axios from "axios";
-// import FacebookTable from "../facebook/facebooktable/page";
-
-// const ServiceCheck = () => {
-//   const [state, setState] = useState({
-//     datas: [],
-//     dataResults: [],
-//     searchItem: "",
-//     nextday: false,
-//   });
-
-//   useEffect(() => {
-//     axios.get("/api/user").then((res) => {
-//       const data = res.data;
-//       setState((prev) => ({ ...prev, datas: data, dataResults: data }));
-//     });
-//   }, []);
-
-//   const todayTask = state.datas.filter(
-//     (item) => item.insert_date === new Date()
-//   );
-//   const completeTask = state.datas.filter((item) => item.is_complete);
-//   const pendingTask = state.datas.filter((item) => !item.is_complete);
-
-//   const handleSearch = (e) => {
-//     const searchTxt = e.target.value.toLowerCase();
-//     setState((prev) => ({
-//       ...prev,
-//       searchItem: searchTxt,
-//       datas: searchTxt
-//         ? prev.dataResults.filter((x) =>
-//             Object.keys(x).some((key) =>
-//               x[key]?.toString().toLowerCase().includes(searchTxt)
-//             )
-//           )
-//         : [...prev.dataResults],
-//     }));
-//   };
-
-//   const toggleNextDay = () => {
-//     setState((prev) => ({
-//       ...prev,
-//       nextday: !prev.nextday,
-//       datas: !prev.nextday
-//         ? prev.dataResults.filter((x) => nextDayFilter(x.probabel_install_date))
-//         : [...prev.dataResults],
-//     }));
-//   };
-
-//   const nextDayFilter = (date) => {
-//     const ddd = new Date(date);
-//     const today = new Date();
-//     today.setHours(23, 59, 59);
-//     const nextDay = new Date(today);
-//     nextDay.setDate(nextDay.getDate() + 1);
-//     return ddd >= today && ddd <= nextDay;
-//   };
-
-//   return (
-//     <div className="h-full w-full bg-green-600 flex flex-col items-center">
-//       <header className="h-[10vh] w-full bg-cyan-800 flex items-center justify-between px-4">
-//         <div className="text-white flex items-center gap-2 uppercase">
-//           Welcome to Facebook Platform
-//           <div className="bg-white text-black rounded-md hidden lg:flex items-center px-2">
-//             Pending:{" "}
-//             <span className="text-red-700 font-bold">{pendingTask.length}</span>
-//           </div>
-//           <div className="bg-white text-black rounded-md hidden lg:flex items-center px-2">
-//             <Link href="/facebook/done">
-//               Done:{" "}
-//               <span className="text-red-700 font-bold">
-//                 {completeTask.length}
-//               </span>
-//             </Link>
-//           </div>
-//         </div>
-//         <div className="flex items-center gap-2">
-//           <Tooltip title="Next Day">
-//             <Checkbox
-//               style={{ color: "white" }}
-//               checked={state.nextday}
-//               onChange={toggleNextDay}
-//             />
-//           </Tooltip>
-//           <Button variant="contained" className="bg-white text-black">
-//             <Link href="/">HOME</Link>
-//           </Button>
-//           <Button variant="contained" className="bg-white text-black">
-//             <Link href="/facebook/add">
-//               <AddIcon fontSize="medium" />
-//             </Link>
-//           </Button>
-//           <input
-//             type="search"
-//             placeholder="Search..."
-//             value={state.searchItem}
-//             onChange={handleSearch}
-//             className="rounded-md p-2"
-//           />
-//         </div>
-//       </header>
-//       <main className="h-[90vh] w-full bg-gray-500 flex justify-center">
-//         <div className="h-[98%] w-[99%] bg-white rounded-md overflow-auto shadow-2xl">
-//           <div className="w-full bg-cyan-900 text-white text-sm uppercase py-2 flex">
-//             <div className="lg:flex lg:flex-1 gap-2 lg:justify-evenly px-2 hidden">
-//               {[
-//                 "Customer Name",
-//                 "Customer No",
-//                 "District",
-//                 "Address",
-//                 "Insert_Date",
-//                 "Pro_Ins_Date",
-//                 "State",
-//                 "Comments",
-//               ].map((header) => (
-//                 <p key={header} className="flex-1.2">
-//                   {header}
-//                 </p>
-//               ))}
-//             </div>
-//             <p className="w-1/5 text-center hidden lg:block">Action</p>
-//           </div>
-//           <div className="h-[92%] overflow-auto">
-//             {pendingTask.map((item, i) => (
-//               <FacebookTable key={i} item={item} />
-//             ))}
-//           </div>
-//         </div>
-//       </main>
-//     </div>
-//   );
-// };
-
-// export default ServiceCheck;

@@ -11,6 +11,8 @@ const defaultUser = {
   probabel_install_date: "",
   comments: "",
   state: "",
+  reference: "",
+  quantity: "1",
 };
 
 const AddService = async () => {

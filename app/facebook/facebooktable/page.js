@@ -81,6 +81,7 @@ const FacebookTable = ({ item }) => {
         <p style={{ flex: 1, fontSize: 14 }}>{item?.service_charge}</p>
         <p style={{ flex: 1, fontSize: 14 }}>{formattedDate}</p>
         <p style={{ flex: 1, fontSize: 14 }}>{probale_install_date_formate}</p>
+        <p style={{ flex: 1, fontSize: 14 }}>{item?.reference}</p>
         <p style={{ flex: 1, fontSize: 14 }}>{item?.state}</p>
         <p
           style={{
@@ -123,6 +124,10 @@ const FacebookTable = ({ item }) => {
         <p>
           <strong>prob Install Date:</strong> {probale_install_date_formate}
         </p>
+        <p>
+          <strong>Reference:</strong> {item?.eference}
+        </p>
+
         <p>
           <strong>Comments:</strong> {item?.comments}
         </p>

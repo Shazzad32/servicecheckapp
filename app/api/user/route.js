@@ -24,6 +24,8 @@ export const POST = async (req) => {
     state,
     device_price,
     service_charge,
+    reference,
+    quantity,
   } = await req.json();
 
   try {
@@ -40,6 +42,8 @@ export const POST = async (req) => {
       state,
       service_charge,
       device_price,
+      reference,
+      quantity,
     });
 
     await newuser.save();
