@@ -43,29 +43,6 @@ const FacebookForm = ({ defaultUser, isUpdate }) => {
     }
   };
 
-  // const updateUser = async () => {
-  //   const res = await fetch(`/api/user/${user._id}`, {
-  //     method: "PUT",
-  //     headers: {
-  //       "Content-type": "application/json",
-  //     },
-  //     body: JSON.stringify(user),
-  //   });
-
-  //   if (!res.ok) {
-  //     throw new Error("Failed to update topic");
-  //   }
-  //   router.push("/facebook");
-  // };
-
-  // const handleChange = (event) => {
-  //   const { name, value } = event.target;
-  //   setUser((prevState) => ({
-  //     ...prevState,
-  //     [name]: value,
-  //   }));
-  // };
-
   const updateUser = async () => {
     const res = await fetch(`/api/user/${user._id}`, {
       method: "PUT",
@@ -184,7 +161,7 @@ const FacebookForm = ({ defaultUser, isUpdate }) => {
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker
             className="w-[50%]"
-            label="Probabal Install Date"
+            label="probable Install Date"
             name="probabel_install_date"
             value={
               user.probabel_install_date
