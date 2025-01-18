@@ -3,14 +3,18 @@ import Link from "next/link";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 const SimTable = ({ item }) => {
-  let formattedDate = "N/A";
-  if (item && item.active_date) {
-    const date = new Date(item.active_date);
-    const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const year = String(date.getFullYear()).slice(-4);
-    formattedDate = `${day}-${month}-${year}`;
-  }
+  // let formattedDate = "N/A";
+  // if (item && item.active_date) {
+  //   const date = new Date(item.active_date);
+  //   const day = String(date.getDate()).padStart(2, "0");
+  //   const month = String(date.getMonth() + 1).padStart(2, "0");
+  //   const year = String(date.getFullYear()).slice(-4);
+  //   formattedDate = `${day}-${month}-${year}`;
+  // }
+
+  const formattedDate = item?.active_date
+    ? new Date(item.active_date).toLocaleDateString("en-GB").replace(/\//g, "-")
+    : new Date().toLocaleDateString("en-GB").replace(/\//g, "-");
 
   return (
     <div className="h-auto w-full flex lg:flex-row lg:h-14 items-center shadow-none  border-b-4 lg:border-none lg:shadow-md">

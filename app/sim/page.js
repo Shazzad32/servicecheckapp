@@ -5,6 +5,7 @@ import { Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import ImportFile from "@/components/ImportFile";
 
 const Sim = () => {
   const [state, setState] = useState({
@@ -68,9 +69,11 @@ const Sim = () => {
           </div>
         </div>
         <div className="flex items-center gap-2">
+          <ImportFile />
           <button className="bg-white text-black px-2 py-1 rounded hover:bg-gray-300">
             <Link href="/"> HOME</Link>
           </button>
+
           <button className="bg-white text-black px-2 p-0.5 rounded hover:bg-gray-300">
             <Link href="/sim/add">
               {" "}

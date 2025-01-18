@@ -23,6 +23,7 @@ const FacebookForm = ({ defaultUser, isUpdate }) => {
   const STATUS = ["AGREE", "PENDING", "BLOCKED"];
   const REF = ["facebook", "reference", "block"];
   const router = useRouter();
+
   const [user, setUser] = useState({
     ...defaultUser,
   });
@@ -79,6 +80,7 @@ const FacebookForm = ({ defaultUser, isUpdate }) => {
       [name]: !prevValue[name],
     }));
   };
+
   const onStatusChange = (e) => {
     setUser((old) => ({ ...old, state: e.target.value }));
   };
