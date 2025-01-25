@@ -42,9 +42,11 @@ const ImportFile = () => {
 
   return (
     <div>
-      <label className="border-2 h-[30px] w-[130px] lg:px-3 rounded-md flex items-center justify-center text-white cursor-pointer">
-        <span className="lg:flex hidden">Import Excel</span>
-        <InsertDriveFileIcon className="flex lg:hidden h-[15px] w-[20px]" />
+      <label className="lg:border-2 h-[35] w-[40px] p-1 lg:h-[30px] lg:w-[130px] lg:p-4 rounded-md flex items-center justify-center text-white cursor-pointer">
+        <p className="lg:flex hidden">Import Excel</p>
+        <span className="flex lg:hidden h-[15px] w-[20px]">
+          <InsertDriveFileIcon />
+        </span>
         <input
           type="file"
           className="hidden"

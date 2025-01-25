@@ -165,15 +165,35 @@ const FacebookDone = () => {
     const { startDate, endDate, dataResults } = state;
     if (startDate && endDate) {
       const filteredData = dataResults.filter((item) => {
-        const installDate = new Date(item.install_date); // Adjust field if different
-        const start = new Date(startDate);
-        const end = new Date(endDate);
-        return installDate >= start && installDate <= end;
+        if (item.install_date) {
+          const installDate = new Date(item.install_date).toLocaleDateString(
+            "en-CA",
+            {
+              timeZone: "Asia/Dhaka",
+              year: "numeric",
+              month: "2-digit",
+              day: "2-digit",
+            }
+          );
+          const start = new Date(startDate).toLocaleDateString("en-CA", {
+            timeZone: "Asia/Dhaka",
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+          });
+          const end = new Date(endDate).toLocaleDateString("en-CA", {
+            timeZone: "Asia/Dhaka",
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+          });
+          return installDate >= start && installDate <= end;
+        }
+        return false;
       });
       setState({ ...state, datas: filteredData });
     }
   };
-
   const exportToExcel = () => {
     const worksheet = XLSX.utils.json_to_sheet(state.datas);
     const workbook = XLSX.utils.book_new();
@@ -190,7 +210,7 @@ const FacebookDone = () => {
   return (
     <div className="h-full w-full bg-cyan-800  flex flex-col items-center justify-center">
       <div className="h-[10vh] w-full bg-cyan-800  flex items-center justify-center text-white text-lg uppercase">
-        <div className="flex-[4] flex justify-start ml-4 items-center gap-2 text-black">
+        <div className="flex-[4] flex justify-center items-center gap-2 text-black">
           <button className="bg-white h-[35px] w-[65px] text-black rounded">
             <Link href="/facebook">Back</Link>
           </button>
@@ -199,25 +219,23 @@ const FacebookDone = () => {
             name="startDate"
             value={state.startDate}
             onChange={handleDateChange}
-            className="border rounded px-1 py-1"
+            className="border rounded px-2 py-1"
           />
           <input
             type="date"
             name="endDate"
             value={state.endDate}
             onChange={handleDateChange}
-            className="border rounded px-1 py-1"
+            className="border rounded px-2 py-1"
           />
           <button
             onClick={filterByDate}
-            className="text-white px-3 py-2 rounded bg-red-500"
+            className="text-white px-4 py-1.5 rounded bg-red-500"
           >
-            Filter
+            GO
           </button>
         </div>
-        <div className="flex-[2] lg:text-[20px] text-[12px]">
-          Completed Facebook Task
-        </div>
+        <div className="flex-[2] lg:text-[20px] text-[12px]">Complete Task</div>
         <div className="flex-[4] flex items-center justify-end lg:mr-10 mr-4 gap-2">
           <button
             onClick={exportToExcel}

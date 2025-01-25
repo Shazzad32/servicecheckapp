@@ -1,7 +1,7 @@
 "use client";
 import SimTable from "../sim/simtable/page";
 import Link from "next/link";
-import { Button } from "@mui/material";
+import FastRewindIcon from "@mui/icons-material/FastRewind";
 import AddIcon from "@mui/icons-material/Add";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -69,11 +69,17 @@ const Sim = () => {
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <button className="bg-white text-black px-2 py-1 rounded hover:bg-gray-300">
-            <Link href="/"> HOME</Link>
+          <button className="lg:bg-white lg text-black px-2 py-1 rounded hover:bg-gray-300">
+            <Link href="/">
+              {" "}
+              HOME{" "}
+              <span className="lg:hidden flex bg-white">
+                <FastRewindIcon />
+              </span>
+            </Link>
           </button>
 
-          <button className="text-[8px] h-[20px] w-[40px] lg:w-[60px] bg-orange-400 lg:bg-transparent px-1 lg:text-[16px] lg:border-2 lg:h-[30px] lg:p-4 rounded-md flex items-center justify-center text-white">
+          <button className="text-[8px] h-[20px] w-[40px] lg:w-[60px] lg:bg-transparent px-1 lg:text-[16px] lg:border-2 lg:h-[30px] lg:p-4 rounded-md flex items-center justify-center text-white">
             <Link href="/sim/add">
               {" "}
               <AddIcon fontSize="medium" />

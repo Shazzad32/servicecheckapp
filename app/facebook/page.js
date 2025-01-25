@@ -151,11 +151,8 @@ const ServiceCheck = () => {
           </button>
         </div>
         <div className="flex items-center gap-2 ">
-          <LocalizationProvider
-            dateAdapter={AdapterDateFns}
-            className="text-white"
-          >
-            <div>
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <div className="bg-white rounded-md">
               <DatePicker
                 label="Select a Date"
                 value={state.selectedDate}
