@@ -85,12 +85,9 @@
 //   }
 // }
 
-
-
 import { connectToDb } from "/utils/database";
 import Devices from "/models/devices";
 
-// GET: Fetch a single device by ID
 export const GET = async (req, { params }) => {
   const { id } = params;
 
@@ -112,7 +109,6 @@ export const GET = async (req, { params }) => {
   }
 };
 
-// PUT: Update a device by ID
 export const PUT = async (req, { params }) => {
   const { id } = params;
 
