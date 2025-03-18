@@ -131,7 +131,6 @@ const FacebookForm = ({ defaultUser, isUpdate }) => {
       <div className="w-full flex gap-4">
         <Autocomplete
           className="w-[50%]"
-          fullWidth
           options={districtOptions}
           value={user.district || ""}
           onChange={(e, newValue) =>
