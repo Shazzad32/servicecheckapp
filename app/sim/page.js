@@ -88,9 +88,8 @@ const Sim = () => {
           <ImportFile />
           <input
             type="search"
-            id="search"
-            className="rounded-md py-1 px-1 lg:w-[70%] sm:w-[75%]"
             placeholder="Search..."
+            className="h-[40px] px-4 rounded-md flex items-center justify-center text-black "
             value={state.searchItem}
             onChange={searchText}
           />

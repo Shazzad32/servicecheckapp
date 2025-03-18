@@ -8,6 +8,7 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  FormHelperText,
 } from "@mui/material";
 import React, { use, useState } from "react";
 import districtOptions from "@/data";
@@ -24,9 +25,25 @@ const FacebookForm = ({ defaultUser, isUpdate }) => {
   const REF = ["facebook", "reference", "block"];
   const router = useRouter();
 
+  const [errors, setErrors] = useState({
+    reference: "",
+  });
+
   const [user, setUser] = useState({
     ...defaultUser,
   });
+
+  const validateFields = () => {
+    let newErrors = {};
+    if (user.is_complete) {
+      if (!user.reference) {
+        newErrors.reference = "Price required";
+      }
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const saveUser = async () => {
     const res = await fetch("/api/user", {
@@ -45,6 +62,8 @@ const FacebookForm = ({ defaultUser, isUpdate }) => {
   };
 
   const updateUser = async () => {
+    if (!validateFields()) return;
+
     const res = await fetch(`/api/user/${user._id}`, {
       method: "PUT",
       headers: {
@@ -152,14 +171,22 @@ const FacebookForm = ({ defaultUser, isUpdate }) => {
 
       <div className="w-full flex gap-4">
         {" "}
-        <TextField
-          className="w-[50%]"
-          label="Quantity"
-          type="number"
-          name="quantity"
-          value={user.quantity}
-          onChange={handleChange}
-        />
+        <FormControl className="w-[50%]">
+          <InputLabel id="demo-simple-select-label">State</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={user.state || ""}
+            label="State"
+            onChange={onStatusChange}
+          >
+            {STATUS.map((x, i) => (
+              <MenuItem key={i} value={x}>
+                {x}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker
             className="w-[50%]"
@@ -182,52 +209,71 @@ const FacebookForm = ({ defaultUser, isUpdate }) => {
         </LocalizationProvider>
       </div>
 
-      <div className="w-full flex gap-4">
-        <FormControl className="w-[33%]">
-          <InputLabel id="demo-simple-select-label">State</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={user.state || ""}
-            label="State"
-            onChange={onStatusChange}
-          >
-            {STATUS.map((x, i) => (
-              <MenuItem key={i} value={x}>
-                {x}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <FormControl className="w-[33%]">
-          <InputLabel id="demo-simple-select-label">Reference</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={user.reference || ""}
-            label="Reference"
-            onChange={onRefChange}
-          >
-            {REF.map((x, i) => (
-              <MenuItem key={i} value={x}>
-                {x}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+      {isUpdate && (
+        <div className="w-full flex ">
+          <p className="w-[20%] float-left">
+            DONE
+            {
+              <Switch
+                value={user.is_complete || ""}
+                name="is_complete"
+                onChange={() => handleSwitchChange("is_complete")}
+                checked={user.is_complete || ""}
+              />
+            }
+          </p>
+          {user.is_complete && (
+            <div className="w-[80%] flex gap-4 float-left">
+              {/* <FormControl className="w-[50%]">
+              <InputLabel id="demo-simple-select-label">Reference</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={user.reference || ""}
+                label="Reference"
+                onChange={onRefChange}
+                error={!!errors.reference}
+                helperText={errors.reference}
+              >
+                {REF.map((x, i) => (
+                  <MenuItem key={i} value={x}>
+                    {x}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl> */}
+              <FormControl className="w-[50%]" error={!!errors.reference}>
+                <InputLabel id="demo-simple-select-label">Reference</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={user.reference || ""}
+                  onChange={onRefChange}
+                >
+                  {REF.map((x, i) => (
+                    <MenuItem key={i} value={x}>
+                      {x}
+                    </MenuItem>
+                  ))}
+                </Select>
+                {errors.reference && (
+                  <FormHelperText>{errors.reference}</FormHelperText>
+                )}
+              </FormControl>
 
-        <p className="w-[33%] h-[40px] flex items-center justify-center">
-          DONE
-          {
-            <Switch
-              value={user.is_complete || ""}
-              name="is_complete"
-              onChange={() => handleSwitchChange("is_complete")}
-              checked={user.is_complete || ""}
-            />
-          }
-        </p>
-      </div>
+              <TextField
+                className="w-[50%]"
+                label="Quantity"
+                type="number"
+                name="quantity"
+                value={user.quantity}
+                onChange={handleChange}
+              />
+            </div>
+          )}
+        </div>
+      )}
+
       <Textarea
         type="text"
         name="comments"

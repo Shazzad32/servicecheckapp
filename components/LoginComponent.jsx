@@ -3,7 +3,6 @@ import { Button, InputAdornment, TextField } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import React, { useState } from "react";
 import AccountBoxOutlinedIcon from "@mui/icons-material/AccountBoxOutlined";
-// import "./style/responsive.css";
 
 const LoginComponent = ({ onLogin }) => {
   const [username, setUsername] = useState("");

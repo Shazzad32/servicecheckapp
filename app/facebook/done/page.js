@@ -113,6 +113,7 @@ import axios from "axios";
 import Link from "next/link";
 import DoneFacebookTable from "../done/donetable/page";
 import * as XLSX from "xlsx";
+import { HiOutlineDownload } from "react-icons/hi";
 
 const FacebookDone = () => {
   const [state, setState] = useState({
@@ -121,6 +122,7 @@ const FacebookDone = () => {
     searchItem: "",
     startDate: "",
     endDate: "",
+    monthYear: "",
   });
 
   useEffect(() => {
@@ -207,9 +209,45 @@ const FacebookDone = () => {
     0
   );
 
+  const facebookRef = state.datas.filter(
+    (x) => x.reference == "facebook"
+  ).length;
+  const referenceRef = state.datas.filter(
+    (x) => x.reference == "reference"
+  ).length;
+
+  const handleInputChange = (e) => {
+    setState((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const filterByMonth = () => {
+    const { monthYear } = state;
+    if (monthYear) {
+      const [year, month] = monthYear.split("-");
+      const filteredData = state.datas.filter((item) => {
+        if (item.install_date) {
+          const installDate = new Date(item.install_date);
+          return (
+            installDate.getFullYear() === parseInt(year) &&
+            installDate.getMonth() + 1 === parseInt(month)
+          );
+        }
+        return false;
+      });
+
+      setState((prev) => ({
+        ...prev,
+        datas: filteredData,
+      }));
+    }
+  };
+
   return (
     <div className="h-full w-full bg-cyan-800  flex flex-col items-center justify-center">
-      <div className="h-[10vh] w-full bg-cyan-800  flex items-center justify-center text-white text-lg uppercase">
+      <div className="h-[10vh] w-full bg-cyan-800  flex items-center justify-center text-white text-lg">
         <div className="flex-[4] flex justify-center items-center gap-2 text-black">
           <button className="bg-white h-[35px] w-[65px] text-black rounded">
             <Link href="/facebook">Back</Link>
@@ -234,18 +272,33 @@ const FacebookDone = () => {
           >
             GO
           </button>
+          <input
+            type="month"
+            name="monthYear"
+            value={state.monthYear}
+            onChange={handleInputChange}
+            className="border rounded px-2"
+            placeholder="select month"
+          />
+          <button
+            onClick={filterByMonth}
+            className="text-white p-2 rounded bg-green-500"
+          >
+            GO
+          </button>
         </div>
-        <div className="flex-[2] lg:text-[20px] text-[12px]">Complete Task</div>
+        <div className="flex-[2] p-2">
+          <p>Facebook:{facebookRef}</p>
+          <p>Reference:{referenceRef}</p>
+        </div>
         <div className="flex-[4] flex items-center justify-end lg:mr-10 mr-4 gap-2">
           <button
             onClick={exportToExcel}
-            className="bg-green-600 text-white px-4 py-2 rounded"
+            className="bg-green-600 text-white p-2 rounded"
           >
-            Download
+            <HiOutlineDownload />
           </button>
-          <p className="bg-cyan-600 text-white px-4 py-2 rounded">
-            Done {totalQuantity}
-          </p>
+          <p className="bg-cyan-600 text-white p-2 rounded">{totalQuantity}</p>
           <input
             type="search"
             id="search"
@@ -266,7 +319,7 @@ const FacebookDone = () => {
               <p style={{ flex: 1, fontSize: 12 }}>Address</p>
               <p style={{ flex: 1, fontSize: 12 }}>Device_Price</p>
               <p style={{ flex: 1, fontSize: 12 }}>Service Charge</p>
-              <p style={{ flex: 1, fontSize: 12 }}>Insert_Date</p>
+              <p style={{ flex: 1, fontSize: 12 }}>Reference</p>
               <p style={{ flex: 1, fontSize: 12 }}>Install_Date</p>
               <p style={{ flex: 1, fontSize: 12 }}>Comments</p>
             </div>

@@ -147,7 +147,7 @@ const ServiceCheck = () => {
         </div>
         <div className="flex items-center gap-2 text-white">
           <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <div className="flex items-center gap-2 text-white">
+            <div className="bg-white rounded-md">
               <DatePicker
                 label="Select Date"
                 className="text-white"
@@ -173,11 +173,18 @@ const ServiceCheck = () => {
               <AddIcon fontSize="medium" />
             </Link>
           </button>
-          <input
+          {/* <input
             type="search"
             id="search"
             className="rounded-md py-1 px-1 sm:w-[75%]"
             placeholder="Search..."
+            value={state.searchItem}
+            onChange={searchText}
+          /> */}
+          <input
+            type="search"
+            placeholder="Search..."
+            className="h-[40px] px-4 rounded-md flex items-center justify-center text-black "
             value={state.searchItem}
             onChange={searchText}
           />

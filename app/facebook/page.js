@@ -192,11 +192,18 @@ const ServiceCheck = () => {
               <AddIcon fontSize="medium" />
             </Link>
           </button>
-          <input
+          {/* <input
             type="search"
             id="search"
             className="rounded-md lg:p-2 p-1 px-2 lg:w-[50%] w-full text-black"
             placeholder="Search..."
+            value={state.searchItem}
+            onChange={handleSearch}
+          /> */}
+          <input
+            type="search"
+            placeholder="Search..."
+            className="h-[40px] px-4 rounded-md flex items-center justify-center text-black "
             value={state.searchItem}
             onChange={handleSearch}
           />

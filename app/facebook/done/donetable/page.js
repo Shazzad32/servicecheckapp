@@ -70,7 +70,7 @@ const DoneFacebookTable = ({ item }) => {
         </p>
         <p style={{ flex: 1, fontSize: 14 }}>{item?.device_price}</p>
         <p style={{ flex: 1, fontSize: 14 }}>{item?.service_charge}</p>
-        <p style={{ flex: 1, fontSize: 14 }}>{formattedDate}</p>
+        <p style={{ flex: 1, fontSize: 14 }}>{item?.reference}</p>
         <p style={{ flex: 1, fontSize: 14 }}>{install_date_formate}</p>
         {/* <p style={{ flex: 1, fontSize: 14 }}>{item?.state}</p> */}
         <p

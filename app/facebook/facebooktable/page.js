@@ -140,7 +140,7 @@ const FacebookTable = ({ item }) => {
           <DeleteForeverIcon className="text-red-700" />
         </Link>
         <div
-          className={`h-[20px] w-[30px] lg:h-[20px] lg:w-[50px] rounded-md ${getColorClass(
+          className={`h-[10px] w-[20px] lg:h-[12px] lg:w-[20px] rounded-md ${getColorClass(
             item?.state
           )}`}
         ></div>
