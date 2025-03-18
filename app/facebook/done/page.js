@@ -150,7 +150,8 @@ const FacebookDone = () => {
           (x.customer_phone &&
             x.customer_phone.toLowerCase().includes(searchTxt)) ||
           (x.district && x.district.toLowerCase().includes(searchTxt)) ||
-          (x.address && x.address.toLowerCase().includes(searchTxt))
+          (x.address && x.address.toLowerCase().includes(searchTxt)) ||
+          (x.reference && x.reference.toLowerCase().includes(searchTxt))
         );
       });
     }
@@ -209,12 +210,27 @@ const FacebookDone = () => {
     0
   );
 
-  const facebookRef = state.datas.filter(
-    (x) => x.reference == "facebook"
-  ).length;
-  const referenceRef = state.datas.filter(
-    (x) => x.reference == "reference"
-  ).length;
+  const facebookRef = state.datas
+    .filter((x) => x.reference === "facebook" && x.is_complete)
+    .reduce((sum, x) => sum + (x.quantity || 0), 0);
+
+  const referenceRef = state.datas
+    .filter((x) => x.reference === "reference" && x.is_complete)
+    .reduce((sum, x) => sum + (x.quantity || 0), 0);
+
+  const bloackRef = state.datas
+    .filter((x) => x.reference === "block" && x.is_complete)
+    .reduce((sum, x) => sum + (x.quantity || 0), 0);
+
+  const others = state.datas
+    .filter(
+      (x) =>
+        x.is_complete &&
+        x.reference != "block" &&
+        x.reference != "facebook" &&
+        x.reference != "reference"
+    )
+    .reduce((sum, x) => sum + (x.quantity || 0), 0);
 
   const handleInputChange = (e) => {
     setState((prev) => ({
@@ -287,9 +303,23 @@ const FacebookDone = () => {
             GO
           </button>
         </div>
-        <div className="flex-[2] p-2">
-          <p>Facebook:{facebookRef}</p>
-          <p>Reference:{referenceRef}</p>
+        <div className="text-[14px] gap-4 ml-2 h-full w-1/6 flex items-center justify-center text-white">
+          <div>
+            <p>
+              Facebook:<strong className="ml-3">{facebookRef}</strong>
+            </p>
+            <p>
+              Reference:<strong className="ml-3">{referenceRef}</strong>
+            </p>
+          </div>
+          <div>
+            <p>
+              Block list:<strong className="ml-3">{bloackRef}</strong>
+            </p>
+            <p>
+              others:<strong className="ml-3">{others}</strong>
+            </p>
+          </div>
         </div>
         <div className="flex-[4] flex items-center justify-end lg:mr-10 mr-4 gap-2">
           <button
