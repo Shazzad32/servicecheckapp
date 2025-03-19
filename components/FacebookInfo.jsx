@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Button, Checkbox, Tooltip } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import axios from "axios";
 import FacebookTable from "../facebook/facebooktable/page";
@@ -9,9 +8,11 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { DatePicker } from "@mui/x-date-pickers";
 
-const ServiceCheck = () => {
+const FacebookInfo = ({ user }) => {
   const [state, setState] = useState({
-    datas: [],
+    datas: [...user],
+    // datas: [],
+
     dataResults: "",
     searchItem: "",
     nextday: false,
@@ -34,29 +35,17 @@ const ServiceCheck = () => {
     });
   };
 
-  // const todayTask = state.datas.filter(
-  //   (item) => item.insert_date === new Date()
-  // );
-
   const completeWort = state.datas
     .filter((item) => item.is_complete && item.quantity)
     .reduce((total, item) => total + item.quantity, 0);
 
   const completeTask = state.datas.filter((item) => item.is_complete === true);
 
-  // const pendingTask = state.datas.filter(
-  //   (item) => item.is_complete === false && item.state != "BLOCKED"
-  // );
+  const pendingTask = state.datas.filter(
+    (item) => item.is_complete === false && item.state != "BLOCKED"
+  );
 
-  // const blockedTask = state.datas.filter((item) => item.state === "BLOCKED");
-
-  const pendingTask = state.datas
-    .filter((item) => item.is_complete === false && item.state !== "BLOCKED")
-    .sort((a, b) => new Date(b.insert_date) - new Date(a.insert_date)); // Sort by insert_date (latest first)
-
-  const blockedTask = state.datas
-    .filter((item) => item.is_complete === false && item.state === "BLOCKED")
-    .sort((a, b) => new Date(b.insert_date) - new Date(a.insert_date));
+  const blockedTask = state.datas.filter((item) => item.state === "BLOCKED");
 
   const handleSearch = (e) => {
     const searchTxt = e.target.value.toLowerCase();
@@ -253,17 +242,4 @@ const ServiceCheck = () => {
   );
 };
 
-export default ServiceCheck;
-
-// import axios from "axios";
-// import FacebookInfo from "@/components/FacebookInfo";
-
-// export const dynamic = "force-dynamic";
-
-// const Facebook = async () => {
-//   const alluser = (await axios.get(`${process.env.URL}/api/user`)).data;
-
-//   return <FacebookInfo user={user} />;
-// };
-
-// export default Facebook;
+export default FacebookInfo;

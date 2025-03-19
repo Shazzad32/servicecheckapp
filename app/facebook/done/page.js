@@ -263,9 +263,9 @@ const FacebookDone = () => {
 
   return (
     <div className="h-full w-full bg-cyan-800  flex flex-col items-center justify-center">
-      <div className="h-[10vh] w-full bg-cyan-800  flex items-center justify-center text-white text-lg">
+      <div className="h-[10vh] w-full bg-cyan-800  flex items-center justify-center text-white">
         <div className="flex-[4] flex justify-center items-center gap-2 text-black">
-          <button className="bg-white h-[35px] w-[65px] text-black rounded">
+          <button className="bg-white h-[35px] w-[65px] text-black rounded ml-3">
             <Link href="/facebook">Back</Link>
           </button>
           <input
@@ -273,18 +273,18 @@ const FacebookDone = () => {
             name="startDate"
             value={state.startDate}
             onChange={handleDateChange}
-            className="border rounded px-2 py-1"
+            className="border rounded px-1 py-1"
           />
           <input
             type="date"
             name="endDate"
             value={state.endDate}
             onChange={handleDateChange}
-            className="border rounded px-2 py-1"
+            className="border rounded p-1"
           />
           <button
             onClick={filterByDate}
-            className="text-white px-4 py-1.5 rounded bg-red-500"
+            className="text-white px-2 py-1.5 rounded bg-red-500"
           >
             GO
           </button>
@@ -293,12 +293,12 @@ const FacebookDone = () => {
             name="monthYear"
             value={state.monthYear}
             onChange={handleInputChange}
-            className="border rounded px-2"
+            className="border rounded p-1"
             placeholder="select month"
           />
           <button
             onClick={filterByMonth}
-            className="text-white p-2 rounded bg-green-500"
+            className="text-white py-1 px-2 rounded bg-green-500"
           >
             GO
           </button>
@@ -324,11 +324,13 @@ const FacebookDone = () => {
         <div className="flex-[4] flex items-center justify-end lg:mr-10 mr-4 gap-2">
           <button
             onClick={exportToExcel}
-            className="bg-green-600 text-white p-2 rounded"
+            className="bg-green-600 text-white p-2 rounded font-bold"
           >
             <HiOutlineDownload />
           </button>
-          <p className="bg-cyan-600 text-white p-2 rounded">{totalQuantity}</p>
+          <p className="bg-cyan-600 text-white px-4 py-1 rounded font-bold">
+            {totalQuantity}
+          </p>
           <input
             type="search"
             id="search"
