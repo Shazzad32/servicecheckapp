@@ -37,11 +37,14 @@ const ServiceCheck = () => {
   const complete = state.datas.filter(
     (item) => item.is_complete === true
   ).length;
+
   const dontcomplete = state.datas.filter(
     (item) => item.is_complete === false
   ).length;
 
-  const notComplete = state.datas.filter((item) => item.is_complete === false);
+  const notComplete = state.datas
+    .filter((item) => item.is_complete === false)
+    .sort((a, b) => new Date(b.insert_date) - new Date(a.insert_date));
 
   const searchText = (e) => {
     let searchTxt = e.target.value.toLowerCase();

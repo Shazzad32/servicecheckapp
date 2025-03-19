@@ -328,7 +328,7 @@ const FacebookDone = () => {
           >
             <HiOutlineDownload />
           </button>
-          <p className="bg-cyan-600 text-white px-4 py-1 rounded font-bold">
+          <p className="bg-red-600 text-white px-4 py-1 rounded font-bold">
             {totalQuantity}
           </p>
           <input
