@@ -1,51 +1,146 @@
+// "use client";
+// import React, { useEffect, useState } from "react";
+// import Link from "next/link";
+// // import { DropdownMenuDemo } from "./DropdownMenuDemo";
+// import FacebookTable from "@/app/facebook/facebooktable/page";
+
+// const headers = [
+//   "Customer Name",
+//   "Customer No",
+//   "District",
+//   "Address",
+//   "Device_Price",
+//   "Service Charge",
+//   "Insert_Date",
+//   "Pro_Ins_Date",
+//   "Reference",
+//   "State",
+//   "Comments",
+// ];
+
+// const FacebookInfo = ({ user }) => {
+//   const [state, setState] = useState({
+//     data: [...user],
+//     search: "",
+//   });
+
+//   const handleSearch = (e) => {
+//     const search = e.target.value.toLowerCase();
+//     setState((prev) => ({
+//       ...prev,
+//       search: search,
+//     }));
+//   };
+
+//   // useEffect(() => {
+//   //   let filterDEvices = [];
+
+//   //   if (state.search === "") {
+//   //     filterDEvices = [...devices];
+//   //   } else {
+//   //     filterDEvices = [...devices].filter(
+//   //       (x) =>
+//   //         x.device_id.toLowerCase().includes(state.search.toLowerCase()) ||
+//   //         x.issue_by.toLowerCase().includes(state.search.toLowerCase()) ||
+//   //         x.device_type.toLowerCase().includes(state.search.toLowerCase()) ||
+//   //         x.device_model.toLowerCase().includes(state.search.toLowerCase()) ||
+//   //         x.district.toLowerCase().includes(state.search.toLowerCase())
+//   //     );
+//   //   }
+
+//   //   setState((prev) => ({
+//   //     ...prev,
+//   //     data: [...filterDEvices],
+//   //   }));
+//   // }, [state.search]);
+
+//   // const non_voice = state.data.filter(
+//   //   (x) => x.send_to === "Retail" && x.device_type === "Non_Voice"
+//   // ).length;
+//   // const voice = state.data.filter(
+//   //   (x) => x.send_to === "Retail" && x.device_type === "Voice"
+//   // ).length;
+
+//   return (
+//     <div className="h-screen w-full flex flex-col bg-red-400">
+//       <div className="h-[10%]">div_1</div>
+//       <div className="h-[90%] flex bg-white p-1">
+//         <div className="h-[10%] bg-red-700 flex flex-col">
+//           <div className="h-[10%] bg-red-700 flex items-center">
+//             {headers.map((x) => (
+//               <p key={x} className="text-white uppercase">
+//                 {x}
+//               </p>
+//             ))}
+//           </div>
+//           <div className="h-[90%] bg-red-900 overflow-y-auto">
+//             {state.data.map((x, i) => (
+//               <div
+//                 key={i}
+//                 className={`${i % 2 == 0 ? "bg-slate-100" : "bg-slate-200"}`}
+//               >
+//                 <FacebookTable item={x} />
+//               </div>
+//             ))}
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default FacebookInfo;
+
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import AddIcon from "@mui/icons-material/Add";
 import axios from "axios";
-import FacebookTable from "../facebook/facebooktable/page";
-import { LocalizationProvider } from "@mui/x-date-pickers";
+import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import { DatePicker } from "@mui/x-date-pickers";
+import FacebookTable from "./FacebookTable";
+
+const headers = [
+  "Name",
+  "Phone",
+  "District",
+  "Address",
+  "Price",
+  "Charge",
+  "Insert Date",
+  "Pro Ins Date",
+  "Reference",
+  "State",
+  "Comments",
+];
 
 const FacebookInfo = ({ user }) => {
   const [state, setState] = useState({
-    datas: [...user],
-    // datas: [],
-
-    dataResults: "",
+    datas: user,
     searchItem: "",
-    nextday: false,
-    is_Blocked: false,
+    isBlocked: false,
     selectedDate: null,
   });
 
   useEffect(() => {
-    getData();
+    axios.get("/api/user").then((res) => {
+      setState((prev) => ({ ...prev, datas: res.data }));
+    });
   }, []);
 
-  const getData = () => {
-    axios.get("/api/user").then((res) => {
-      let data = res.data;
-      let old = { ...state };
-      old.datas = data;
-      old.dataResults = data;
-      console.log("data", old.datas);
-      setState(old);
-    });
-  };
+  const filterTasks = (condition) => state.datas.filter(condition);
 
-  const completeWort = state.datas
-    .filter((item) => item.is_complete && item.quantity)
-    .reduce((total, item) => total + item.quantity, 0);
+  const pendingTasks = filterTasks(
+    (item) => !item.is_complete && item.state !== "BLOCKED"
+  ).sort((a, b) => new Date(b.insert_date) - new Date(a.insert_date));
 
-  const completeTask = state.datas.filter((item) => item.is_complete === true);
+  const blockedTasks = filterTasks(
+    (item) => !item.is_complete && item.state === "BLOCKED"
+  ).sort((a, b) => new Date(b.insert_date) - new Date(a.insert_date));
 
-  const pendingTask = state.datas.filter(
-    (item) => item.is_complete === false && item.state != "BLOCKED"
-  );
-
-  const blockedTask = state.datas.filter((item) => item.state === "BLOCKED");
+  const completedWork = filterTasks(
+    (item) => item.is_complete && item.quantity
+  ).reduce((total, item) => total + item.quantity, 0);
 
   const handleSearch = (e) => {
     const searchTxt = e.target.value.toLowerCase();
@@ -53,191 +148,99 @@ const FacebookInfo = ({ user }) => {
       ...prev,
       searchItem: searchTxt,
       datas: searchTxt
-        ? prev.dataResults.filter((x) =>
-            Object.keys(x).some((key) =>
-              x[key]?.toString().toLowerCase().includes(searchTxt)
+        ? user.filter((x) =>
+            Object.values(x).some((value) =>
+              value?.toString().toLowerCase().includes(searchTxt)
             )
           )
-        : [...prev.dataResults],
+        : user,
     }));
   };
 
-  // const nextDayFilter = (date) => {
-  //   let ddd = new Date(date);
-  //   let today = new Date();
-  //   today.setHours(23);
-  //   today.setMinutes(59);
-  //   today.setSeconds(59);
-
-  //   let nextDay = new Date(today.getTime());
-  //   nextDay.setDate(nextDay.getDate() + 1);
-  //   return (
-  //     ddd.getTime() >= today.getTime() && ddd.getTime() <= nextDay.getTime()
-  //   );
-  // };
-
-  // const onCheckChanged = (e) => {
-  //   let old = { ...state };
-  //   old.nextday = !old.nextday;
-
-  //   if (old.nextday) {
-  //     old.datas = [...old.dataResults].filter((x) =>
-  //       nextDayFilter(x.probabel_install_date)
-  //     );
-  //   } else {
-  //     old.datas = [...old.dataResults];
-  //   }
-  //   setState(old);
-  // };
-
-  const toggleBlocked = () => {
-    setState((prev) => ({
-      ...prev,
-      is_Blocked: !prev.is_Blocked,
-    }));
-  };
+  const toggleBlocked = () =>
+    setState((prev) => ({ ...prev, isBlocked: !prev.isBlocked }));
 
   const onDateChange = (date) => {
-    const selectedDate = new Date(date).setHours(0, 0, 0, 0);
-    const filteredData = state.dataResults.filter((item) => {
-      const itemDate = new Date(item.probabel_install_date).setHours(
-        0,
-        0,
-        0,
-        0
-      );
-      return itemDate === selectedDate;
-    });
-
-    setState((prevState) => ({
-      ...prevState,
+    setState((prev) => ({
+      ...prev,
       selectedDate: date,
-      datas: filteredData,
+      datas: user.filter(
+        (item) =>
+          new Date(item.probabel_install_date).toDateString() ===
+          new Date(date).toDateString()
+      ),
     }));
   };
 
   return (
-    <div className="h-full w-full bg-green-600 flex flex-col items-center justify-center">
-      <div className="h-[10vh] w-full bg-cyan-800 flex flex-wrap items-center justify-between px-4 py-2">
-        <div className=" text-white text-center flex  gap-2 lg:text-lg md:text-sm sm:text-sm uppercase lg:p-0 sm:p-2">
-          Facebook Platform
-          <div className="w-[55px] lg:w-[120px] h-[30px] text-sm bg-white text-black rounded-md flex items-center justify-center">
-            <p className="lg:flex hidden">Pending :</p>
-            <span className="text-red-700 font-bold ml-2 flex">
-              <p className="lg:hidden">P=</p>
-              {pendingTask.length}
-            </span>
-          </div>
-          <div className="w-[55px] lg:w-[100px] h-[30px] text-sm bg-white text-black rounded-md flex items-center justify-center">
-            <Link href={"/facebook/done"} className="flex">
-              <p className="lg:flex hidden"> Done :</p>
-              <span className="text-red-700 font-bold ml-2 flex">
-                <p className="lg:hidden">D=</p>
-                {completeWort}
-              </span>
-            </Link>
-          </div>
-          <button
-            className="w-[55px] lg:w-[100px] h-[30px] text-sm bg-white text-black rounded-md flex items-center justify-center"
-            onClick={toggleBlocked}
-          >
-            <p className="hidden lg:flex">Blocked :</p>
-            <span className="text-red-700 font-bold ml-2 flex">
-              <p className="lg:hidden">B=</p>
-              {blockedTask.length}
-            </span>
+    <div className="h-full w-fullflex flex-col items-center justify-center">
+      <header className="h-[10vh] w-full bg-gray-700 flex items-center justify-between px-4 py-2">
+        <div className="text-red-400 flex gap-4 lg:text-lg uppercase">
+          Facebook
+          <span className="info-box text-white">
+            Pending:{" "}
+            <strong className="text-orange-300">{pendingTasks.length}</strong>
+          </span>
+          <Link href="/facebook/done" className="info-box text-white">
+            Done: <strong className="text-orange-300">{completedWork}</strong>
+          </Link>
+          <button className="info-box text-white" onClick={toggleBlocked}>
+            Blocked:{" "}
+            <strong className="text-orange-300">{blockedTasks.length}</strong>
           </button>
         </div>
-        <div className="flex items-center gap-2 ">
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <div className="bg-white rounded-md">
-              <DatePicker
-                label="Select a Date"
-                value={state.selectedDate}
-                onChange={(date) => onDateChange(date)}
-                renderInput={(params) => (
-                  <button
-                    {...params.inputProps}
-                    className="bg-blue-500 text-white px-2 py-2 rounded border-white"
-                  >
-                    {state.selectedDate
-                      ? new Date(state.selectedDate).toLocaleDateString()
-                      : ""}
-                  </button>
-                )}
-              />
-            </div>
-          </LocalizationProvider>
-          {/* <p className="text-white hidden uppercase lg:flex">Tomorrow</p>
-          <Tooltip title="Next Day" enterDelay={200} leaveDelay={200}>
-            <Checkbox
-              style={{
-                height: "35px",
-                width: "40px",
-                color: "white",
-              }}
-              label="Next"
-              checked={state.nextday}
-              onChange={onCheckChanged}
+        <div className="flex items-center gap-2">
+          {" "}
+          <Link href="/" className="btn text-white">
+            HOME
+          </Link>
+          <Link href="/facebook/add" className="btn text-white">
+            <AddIcon />
+          </Link>
+          <LocalizationProvider dateAdapter={AdapterDateFns} className="p-1">
+            <DatePicker
+              className="bg-white rounded-md w-[200px]"
+              label="Select Date"
+              value={state.selectedDate}
+              onChange={onDateChange}
             />
-          </Tooltip> */}
-          <button className="bg-white text-black px-2 py-1 rounded hover:bg-gray-300">
-            <Link href="/">HOME</Link>
-          </button>
-          <button className="bg-white text-black px-2 p-0.5 rounded hover:bg-gray-300">
-            <Link href="/facebook/add">
-              {" "}
-              <AddIcon fontSize="medium" />
-            </Link>
-          </button>
-          {/* <input
-            type="search"
-            id="search"
-            className="rounded-md lg:p-2 p-1 px-2 lg:w-[50%] w-full text-black"
-            placeholder="Search..."
-            value={state.searchItem}
-            onChange={handleSearch}
-          /> */}
+          </LocalizationProvider>
           <input
             type="search"
             placeholder="Search..."
-            className="h-[40px] px-4 rounded-md flex items-center justify-center text-black "
+            className="h-[40px] px-4 search-box rounded-md flex items-center justify-center text-black "
             value={state.searchItem}
             onChange={handleSearch}
           />
         </div>
-      </div>
+      </header>
 
-      <div className="h-[90vh] w-full bg-gray-500 flex items-center justify-center">
-        <div className="h-[98%] w-[99%] shadow-2xl bg-white rounded-md overflow-auto lg:overflow-x-auto">
-          <div className="w-full flex bg-cyan-900 text-white uppercase">
-            <div className="w-[80%] lg:flex lg:justify-evenly lg:items-center lg:flex-[1] lg:whitespace-nowrap lg:overflow-hidden lg:text-clip p-3 hidden">
-              <p style={{ flex: 1, fontSize: 12 }}>Customer Name</p>
-              <p style={{ flex: 1, fontSize: 12 }}>Customer No</p>
-              <p style={{ flex: 1, fontSize: 12 }}>District</p>
-              <p style={{ flex: 1, fontSize: 12 }}>Address</p>
-              <p style={{ flex: 1, fontSize: 12 }}>Device_Price</p>
-              <p style={{ flex: 1, fontSize: 12 }}>Service Charge</p>
-              <p style={{ flex: 1, fontSize: 12 }}>Insert_Date</p>
-              <p style={{ flex: 1, fontSize: 12 }}>Pro_Ins_Date</p>
-              <p style={{ flex: 1, fontSize: 12 }}>Reference</p>
-              <p style={{ flex: 1, fontSize: 12 }}>State</p>
-              <p style={{ flex: 1, fontSize: 12 }}>Comments</p>
+      <main className="h-[90vh] w-full bg-gray-500 flex items-center justify-center">
+        <div className="h-[98%] w-[99%] shadow-2xl bg-white rounded-md overflow-auto">
+          <div className="w-full h-[8%] bg-gray-700 text-[14px] font-bold text-white flex items-center">
+            <div className="w-[90%] flex justify-between p-2 uppercase">
+              {headers.map((header) => (
+                <p key={header} className="flex flex-[0.9]">
+                  {header}
+                </p>
+              ))}
             </div>
-            <div className="w-[20%] lg:flex lg:items-center uppercase text-[12px] lg:justify-center hidden  ">
-              <p>Action</p>
+            <div className="w-[10%] flex justify-center items-center uppercase">
+              Action
             </div>
           </div>
-          <div className="h-[92%] w-full overflow-auto">
-            {(state.is_Blocked ? blockedTask : pendingTask).map((item, i) => (
-              <FacebookTable key={i} item={item} />
+          <div className="h-[92%] w-full overflow-x-auto justify-between">
+            {(state.isBlocked ? blockedTasks : pendingTasks).map((item, i) => (
+              <div
+                key={i}
+                className={`${i % 2 === 0 ? "bg-blue-100" : "bg-gray-300"}`}
+              >
+                <FacebookTable key={i} item={item} />
+              </div>
             ))}
-            {/* {pendingTask.map((item, i) => (
-              <FacebookTable key={i} item={item} />
-            ))} */}
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 };
